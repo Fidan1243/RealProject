@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\WebApplication.Core\Project.Core.csproj" />
+    <ProjectReference Include="..\WebApplication.Entities\Project.Entities.csproj" />
+  </ItemGroup>
+
+</Project>
