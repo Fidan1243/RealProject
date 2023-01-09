@@ -10,9 +10,9 @@ namespace Project.Entities.Concrete
     {
         public int Id { get; set; }
         [Required]
-        public int Brand_Id { get; set; }
+        public string Name { get; set; }
         [Required]
-        public int Type_Id { get; set; }
+        public int Model_Id { get; set; }
         [Required]
         public int Material_Id { get; set; }
         [Required]

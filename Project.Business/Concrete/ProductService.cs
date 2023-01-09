@@ -27,6 +27,12 @@ namespace Project.Business.Concrete
             return product;
         }
 
+        public List<Product> GetProductByModel(int id)
+        {
+            var product = _productDal.GetList(g => g.Model_Id == id);
+            return product;
+        }
+
         public List<Product> GetProducts()
         {
             var product = _productDal.GetList();

@@ -21,6 +21,12 @@ namespace Project.Business.Concrete
             _modelDal.Add(model);
         }
 
+        public Model GetByName(string name)
+        {
+            var model = _modelDal.Get(g => g.Name == name);
+            return model;
+        }
+
         public Model GetModel(int id)
         {
             var model = _modelDal.Get(g => g.Id == id);

@@ -9,6 +9,7 @@ namespace Project.Business.Abstract
     {
         List<Model> GetModels();
         Model GetModel(int id);
+        Model GetByName(string name);
         void AddModel(Model model);
         void RemoveModel(int id);
     }

@@ -1,0 +1,35 @@
+﻿@model Project.UI.Models.ProductListViewModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "Index";
+    ViewData["Username"] = @Model.UserName;
+    ViewData["Role"] = @Model.UserRole;
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+
+<h1>Index</h1>
+
+<div class="d-flex justify-content-around flex-wrap p-4">
+    @foreach (var item in Model.Products)
+    {
+        <div class="card m-4" style="width: 18rem;">
+            <a class="text-decoration-none text-black-50" asp-controller="Home"
+           asp-action="Product" asp-route-productId="@item.Id">
+
+                <img src="~/images/@item.ImagePath" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">@item.Name</h5>
+                    <p class="card-text">@item.Price</p>
+                    @if (@Model.UserRole == "Admin")
+                    {
+                        <a asp-controller="Admin" asp-action="UpdateProduct" asp-route-productId="@item.Id" class="btn btn-primary"></a>
+                        <a asp-controller="Admin" asp-action="DeleteProduct" asp-route-productId="@item.Id" class="btn btn-danger"></a>
+
+                    }
+                </div>
+            </a>
+        </div>
+
+    }
+</div>
