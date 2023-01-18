@@ -1,0 +1,81 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model Project.UI.Models.ProductModifyModel
+
+@{
+    ViewData["Title"] = "UpdateProduct";
+    ViewData["Username"] = @Model.UserName;
+    ViewData["Role"] = @Model.UserRole;
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+<h2>
+    Update product
+</h2>
+
+<div class="container">
+    <div id="loginbox" style="margin-top:50px;"
+         class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+        <div class="panel panel-info">
+
+            <div style="padding-top:30px;" class="panel-body">
+                <div style="display:none;" id="login-alert"
+                     class="alert alert-danger col-sm-12">
+                </div>
+
+
+
+
+                <form asp-controller="Admin" asp-action="UpdateProduct" method="post">
+                    <div style="margin-bottom:15px" class="form-group hidden">
+                        <label asp-for="Product.Id">Id</label>
+                        <input asp-for="Product.Id" class="form-control" placeholder="Id" />
+                        <span asp-validation-for="Product.Id"></span>
+                    </div>
+                    <div style="margin-bottom:15px" class="form-group">
+                        <label asp-for="Product.Name">Name</label>
+                        <input asp-for="Product.Name" class="form-control" placeholder="Name" />
+                        <span asp-validation-for="Product.Name"></span>
+                    </div>
+                    <div style="margin-bottom:15px" class="form-group">
+                        <label asp-for="Product.Model_Id">Model</label>
+
+                        <select asp-for="Product.Model_Id" class="form-control"
+                                asp-items="@(new SelectList(Model.Models, "Id", "Name"))">
+                            <option>Please select one</option>
+                        </select>
+
+                    </div>
+                    <div style="margin-bottom:15px" class="form-group">
+                        <label asp-for="Product.Material_Id">Material</label>
+                        <select asp-for="Product.Material_Id" class="form-control"
+                                asp-items="@(new SelectList(Model.Materials, "Id", "Name"))">
+                            <option>Please select one</option>
+                        </select>
+
+                    </div>
+                    <div style="margin-bottom:15px" class="form-group">
+                        <label asp-for="Product.Price">Price</label>
+                        <input asp-for="Product.Price" class="form-control" placeholder="Price" />
+                        <span asp-validation-for="Product.Price"></span>
+                    </div>
+                    <div style="margin-bottom:15px" class="form-group">
+                        <label asp-for="Product.Quantity">Quantity</label>
+                        <input asp-for="Product.Quantity" class="form-control" placeholder="Quantity" />
+                        <span asp-validation-for="Product.Quantity"></span>
+                    </div>
+                    <div style="margin-bottom:15px" class="form-group">
+                        <label asp-for="Product.ImagePath">Image Path</label>
+                        <input asp-for="Product.ImagePath" class="form-control" placeholder="ImagePath" />
+                        <span asp-validation-for="Product.ImagePath"></span>
+                    </div>
+                    <div style="margin-bottom:15px" class="form-group">
+                        <label asp-for="Product.OrderCount">Order Count</label>
+                        <input asp-for="Product.OrderCount" class="form-control" placeholder="OrderCount" />
+                        <span asp-validation-for="Product.OrderCount"></span>
+                    </div>
+                    <input type="submit" value="Update" class="btn btn-xs btn-outline-success" />
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -10,6 +10,7 @@ namespace Project.Business.Abstract
         List<Material> GetMaterials();
         Material GetMaterial(int id);
         void AddMaterial(Material material);
+        void UpdateMaterial(Material material);
         void RemoveMaterial(int id);
     }
 }

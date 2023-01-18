@@ -19,5 +19,9 @@ namespace Project.Entities.Concrete
         public double Price { get; set; }
         [Required]
         public string ImagePath { get; set; }
+        [Required]
+        public int OrderCount { get; set; } = 0;
+        [Required]
+        public int Quantity { get; set; } = 0;
     }
 }

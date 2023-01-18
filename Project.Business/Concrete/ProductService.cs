@@ -43,5 +43,10 @@ namespace Project.Business.Concrete
         {
             _productDal.Delete(GetProduct(id));
         }
+
+        public void UpdateProduct(Product product)
+        {
+            _productDal.Update(product);
+        }
     }
 }

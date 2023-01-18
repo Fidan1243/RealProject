@@ -37,5 +37,10 @@ namespace Project.Business.Concrete
         {
             _materialDal.Delete(GetMaterial(id));
         }
+
+        public void UpdateMaterial(Material material)
+        {
+            _materialDal.Update(material);
+        }
     }
 }

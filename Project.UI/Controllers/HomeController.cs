@@ -17,6 +17,7 @@ namespace Project.UI.Controllers
         private IProductService _productService;
         private IModelService _modelService;
         private IComboService _comboService;
+        
         private string role = "";
         private string UserName = ""; 
         public HomeController(IProductService productService, IComboService comboService, IModelService modelService, IHttpContextAccessor httpContextAccessor)

@@ -43,5 +43,10 @@ namespace Project.Business.Concrete
         {
             _modelDal.Delete(GetModel(id));
         }
+
+        public void UpdateModel(Model model)
+        {
+            _modelDal.Update(model);
+        }
     }
 }

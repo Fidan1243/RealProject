@@ -11,6 +11,7 @@ namespace Project.Business.Abstract
         Model GetModel(int id);
         Model GetByName(string name);
         void AddModel(Model model);
+        void UpdateModel(Model model);
         void RemoveModel(int id);
     }
 }
