@@ -52,10 +52,10 @@ namespace Project.UI.Controllers
             return View(model);
         }
         [HttpPost]
-        public IActionResult UpdateProduct(Product produc)
+        public IActionResult UpdateProduct(Product product)
         {
 
-            _productService.UpdateProduct(produc);
+            _productService.UpdateProduct(product);
             return RedirectToAction("Index", "Home");
         }
         public IActionResult AddProduct()
