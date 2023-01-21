@@ -9,6 +9,11 @@
 }
 
 <h1>Index</h1>
+@if(@Model.UserRole == "Admin")
+{
+<a asp-controller="Admin" asp-action="AddProduct" class="btn btn-success">Add</a>
+    
+}
 
 <div class="d-flex justify-content-around flex-wrap p-4">
     @foreach (var item in Model.Products)
@@ -23,8 +28,8 @@
                     <p class="card-text">@item.Price</p>
                     @if (@Model.UserRole == "Admin")
                     {
-                        <a asp-controller="Admin" asp-action="UpdateProduct" asp-route-productId="@item.Id" class="btn btn-primary"></a>
-                        <a asp-controller="Admin" asp-action="DeleteProduct" asp-route-productId="@item.Id" class="btn btn-danger"></a>
+                        <a asp-controller="Admin" asp-action="UpdateProduct" asp-route-productId="@item.Id" class="btn btn-primary">Update</a>
+                        <a asp-controller="Admin" asp-action="DeleteProduct" asp-route-productId="@item.Id" class="btn btn-danger">Delete</a>
 
                     }
                 </div>

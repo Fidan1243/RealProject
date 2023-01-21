@@ -8,6 +8,9 @@ using System.Security.Claims;
 using System.Linq;
 using Project.Entities.Concrete;
 using Project.UI.Models;
+using Microsoft.AspNetCore.Hosting;
+using Project.UI.Helpers;
+using System.Threading.Tasks;
 
 namespace Project.UI.Controllers
 {
@@ -17,11 +20,13 @@ namespace Project.UI.Controllers
         private IProductService _productService;
         private IMaterialService _materialService;
         private IModelService _modelService;
+        private IWebHostEnvironment _webhost;
         private string role = "";
         private UserManager<CustomIdentityUser> _userManager;
         private string UserName = "";
-        public AdminController(IHttpContextAccessor httpContextAccessor, IProductService productService, UserManager<CustomIdentityUser> useerManager, IMaterialService materialService, IModelService modelService)
+        public AdminController(IWebHostEnvironment webHost,IHttpContextAccessor httpContextAccessor, IProductService productService, UserManager<CustomIdentityUser> useerManager, IMaterialService materialService, IModelService modelService)
         {
+            _webhost = webHost;
             UserName = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Name).Value;
             role = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Role).Value;
             _productService = productService;
@@ -52,15 +57,32 @@ namespace Project.UI.Controllers
             return View(model);
         }
         [HttpPost]
-        public IActionResult UpdateProduct(Product product)
+        public async Task<IActionResult> UpdateProductAsync(ProductModifyModel productModifyModel)
         {
-
-            _productService.UpdateProduct(product);
+            var helper = new ProductModifyHelper(_webhost);
+            var updateProduct = await helper.ProductCreation(productModifyModel);
+            _productService.UpdateProduct(updateProduct);
             return RedirectToAction("Index", "Home");
         }
         public IActionResult AddProduct()
         {
-            return View();
+            var model = new ProductModifyModel
+            {
+                Product = new Product(),
+                UserRole = role,
+                UserName = UserName,
+                Materials = _materialService.GetMaterials(),
+                Models = _modelService.GetModels(),
+            };
+            return View(model);
+        }
+        [HttpPost]
+        public async Task<IActionResult> AddProductAsync(ProductModifyModel productModifyModel)
+        {
+            var helper = new ProductModifyHelper(_webhost);
+            var addProduct = await helper.ProductCreation(productModifyModel);
+            _productService.AddProduct(addProduct);
+            return RedirectToAction("Index", "Home");
         }
         public IActionResult Accounts()
         {

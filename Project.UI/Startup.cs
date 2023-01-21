@@ -5,8 +5,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Project.Business;
 using Project.Business.Abstract;
 using Project.Business.Concrete;
+using Project.DataAccess;
 using Project.DataAccess.Abstract;
 using Project.DataAccess.Concrete;
 using Project.UI.Entities;
@@ -30,22 +32,8 @@ namespace Project.UI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddBusiness().AddDataAccess();
 
-            services.AddScoped<IComboService, ComboService>();
-            services.AddScoped<IComboDal, EfComboDal>();
-
-            services.AddScoped<IMaterialService, MaterialService>();
-            services.AddScoped<IMaterialDal, EfMaterialDal>();
-
-
-            services.AddScoped<IProductService, ProductService>();
-            services.AddScoped<IProductDal, EfProductDal>();
-
-            services.AddScoped<IModelService, ModelService>();
-            services.AddScoped<IModelDal, EfModelDal>();
-
-            services.AddScoped<IUserService, UserService>();
-            services.AddScoped<IUserDal, EfUserDal>();
             services.AddHttpContextAccessor();
 
             services.AddDbContext<CustomeIdentityDbContext>(
