@@ -66,10 +66,7 @@ namespace Project.UI.Controllers
         }
         public IActionResult Combinations()
         {
-
-            int pageSize = 10;
-            var combos = _comboService.GetCombos();
-            var combolist = _chelper.ListViewModel(combos);
+            var combolist = _chelper.ListViewModel(_comboService.GetCombos());
             var vm = new ComboListViewModel()
             {
                 Combos = combolist,
