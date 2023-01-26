@@ -32,11 +32,33 @@ namespace Project.UI.Controllers
         }
         public IActionResult Index()
         {
-            int pagesize = 10;
             var products = _productService.GetProducts();
             var vm = new ProductListViewModel()
             {
                 Products = products,
+                UserRole = role,
+                UserName = UserName
+            };
+            return View(vm);
+        }
+        public IActionResult Product(int productId)
+        {
+            var product = _productService.GetProduct(productId);
+            var vm = new ProductViewModel()
+            {
+                Product = product,
+                UserRole = role,
+                UserName = UserName
+            };
+            return View(vm);
+        }
+        public IActionResult Combination(int comboId)
+        {
+            var combo = _chelper.ViewModel(_comboService.GetCombo(comboId));
+
+            var vm = new ComboViewModel()
+            {
+                Combo = combo,
                 UserRole = role,
                 UserName = UserName
             };

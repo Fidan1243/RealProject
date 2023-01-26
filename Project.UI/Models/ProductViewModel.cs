@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace Project.UI.Models
 {
-    public class ComboListViewModel
+    public class ProductViewModel
     {
-        public List<ComboMViewModel> Combos { get; set; }
+        public Product Product { get; set; }
         public string UserRole { get; set; }
         public string UserName { get; set; }
     }

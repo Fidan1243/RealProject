@@ -43,12 +43,12 @@ namespace Project.UI.Helpers
                 Decoration_Marbles = decoration_marbles
             };
         }
-        public List<ComboViewModel> ListViewModel(List<Combo> combos)
+        public List<ComboMViewModel> ListViewModel(List<Combo> combos)
         {
-            var list = new List<ComboViewModel>();
+            var list = new List<ComboMViewModel>();
             foreach (var item in combos)
             {
-                var cvitem = new ComboViewModel()
+                var cvitem = new ComboMViewModel()
                 {
                     Id = item.Id,
                     Name = item.Name,
@@ -65,6 +65,24 @@ namespace Project.UI.Helpers
                 list.Add(cvitem);
             }
             return list;
+        }
+        public ComboMViewModel ViewModel(Combo combos)
+        {
+            var cvitem = new ComboMViewModel()
+            {
+                Id = combos.Id,
+                Name = combos.Name,
+                Total = combos.Total,
+                Decoration_Marble_Count = combos.Decoration_Marble_Count,
+                Marble_Count = combos.Marble_Count,
+                Toilet = _productService.GetProduct(combos.Toilet_Id),
+                Mirror = _productService.GetProduct(combos.Mirror_Id),
+                SinkUnit = _productService.GetProduct(combos.Sink_Unit_Id),
+                Shower = _productService.GetProduct(combos.Shower_Id),
+                Marble = _productService.GetProduct(combos.Marble_Id),
+                Decoration_Marble = _productService.GetProduct(combos.Decoration_Marble_Id),
+            };
+            return cvitem;
         }
     }
 }
