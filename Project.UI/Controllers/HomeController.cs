@@ -17,7 +17,7 @@ namespace Project.UI.Controllers
         private IProductService _productService;
         private IModelService _modelService;
         private IComboService _comboService;
-        
+        private readonly ComboProductsHelper _chelper; 
         private string role = "";
         private string UserName = ""; 
         public HomeController(IProductService productService, IComboService comboService, IModelService modelService, IHttpContextAccessor httpContextAccessor)
@@ -25,6 +25,7 @@ namespace Project.UI.Controllers
             _productService = productService;
             _comboService = comboService;
             _modelService = modelService;
+            _chelper = new ComboProductsHelper(_productService, _modelService);
             UserName = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Name).Value;
             role = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Role).Value;
 
@@ -46,16 +47,18 @@ namespace Project.UI.Controllers
 
             int pageSize = 10;
             var combos = _comboService.GetCombos();
+            var combolist = _chelper.ListViewModel(combos);
             var vm = new ComboListViewModel()
             {
-                Combos = combos,
+                Combos = combolist,
+                UserName = UserName,
+                UserRole = role,
             };
-            return View(combos);
+            return View(vm);
         }
         public IActionResult CreateCombination()
         {
-            ComboProductsHelper chelper = new ComboProductsHelper(_productService, _modelService);
-            var vm = chelper.CreateViewModel();
+            var vm = _chelper.CreateViewModel();
             return View(vm);
         }
     }

@@ -1,0 +1,37 @@
+﻿@model Project.UI.Models.ComboListViewModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "Index";
+    ViewData["Username"] = @Model.UserName;
+    ViewData["Role"] = @Model.UserRole;
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+
+<h1>Index</h1>
+<a asp-controller="Home" asp-action="CreateCombination" class="btn btn-success">Add</a>
+
+
+<div class="d-flex justify-content-around flex-wrap p-4">
+    @foreach (var item in Model.Combos)
+    {
+        <div class="card m-4" style="width: 18rem;">
+            <a class="text-decoration-none text-black-50" asp-controller="Home"
+           asp-action="Combination" asp-route-productId="@item.Id">
+
+                <img src="~/images/@item.Mirror" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">@item.Name</h5>
+                    <p class="card-text">@item.Total</p>
+                    @if (item.UserName == Model.UserName || Model.UserRole == "Admin")
+                    {
+                        <a asp-controller="Admin" asp-action="UpdateCombination" asp-route-productId="@item.Id" class="btn btn-primary">Update</a>
+                        <a asp-controller="Admin" asp-action="DeleteCombination" asp-route-productId="@item.Id" class="btn btn-danger">Delete</a>
+
+                    }
+                </div>
+            </a>
+        </div>
+
+    }
+</div>

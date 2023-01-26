@@ -5,6 +5,8 @@ namespace Project.UI.Models
 {
     public class ComboListViewModel
     {
-        public List<Combo> Combos { get; set; }
+        public List<ComboViewModel> Combos { get; set; }
+        public string UserRole { get; set; }
+        public string UserName { get; set; }
     }
 }
