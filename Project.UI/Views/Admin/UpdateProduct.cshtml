@@ -2,9 +2,11 @@
 @model Project.UI.Models.ProductModifyModel
 
 @{
-    ViewData["Title"] = "UpdateProduct";
-    ViewData["Username"] = @Model.UserName;
-    ViewData["Role"] = @Model.UserRole;
+    ViewData["Title"] = "Update Product";
+    ViewData["Username"] = @Model.User.UserName;
+    ViewData["Role"] = @Model.User.Role;
+    ViewData["Materials"] = @Model.Materials;
+    ViewData["Models"] = @Model.Models;
     Layout = "~/Views/Shared/_Layout1.cshtml";
 }
 <h2>

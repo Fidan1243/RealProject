@@ -10,7 +10,7 @@ namespace Project.Entities.Concrete
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string UserName { get; set; }
+        public int User_Id { get; set; }
         public int Mirror_Id { get; set; }
         public int Sink_Unit_Id { get; set; }
         public int Shower_Id { get; set; }

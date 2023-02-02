@@ -1,11 +1,107 @@
-﻿
+﻿@model Project.UI.Models.ComboProductsViewModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
 @{
-    
-    ViewData["Title"] = "Create Combination";
-    ViewData["Username"] = @Model.UserName;
-    ViewData["Role"] = @Model.UserRole;
+    ViewData["Title"] = "Create Combo";
+    ViewData["Username"] = @Model.User.UserName;
+    ViewData["Role"] = @Model.User.Role;
+    ViewData["Models"] = @Model.Models;
+    ViewData["Materials"] = @Model.Materials;
     Layout = "~/Views/Shared/_Layout1.cshtml";
 }
 
-<h1>CreateCombination</h1>
+<h2>
+    Create Combination
+</h2>
 
+<div class="container">
+    <div id="loginbox" style="margin-top:50px;"
+         class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+        <div class="panel panel-info">
+
+            <div style="padding-top:30px;" class="panel-body">
+                <div style="display:none;" id="login-alert"
+                     class="alert alert-danger col-sm-12">
+                </div>
+
+
+
+
+                <form asp-controller="Home" asp-action="CreateCombination" enctype="multipart/form-data" role="form" method="post">
+                    <div style="margin-bottom:15px" class="form-group">
+                        <label asp-for="@Model.Combo.Name">Name</label>
+                        <input asp-for="@Model.Combo.Name" class="form-control" placeholder="Name" />
+                        <span asp-validation-for="@Model.Combo.Name"></span>
+                    </div>
+                    <div style="margin-bottom:15px" class="form-group">
+                        <label asp-for="@Model.Combo.Marble_Id">Marble</label>
+
+                        <select asp-for="@Model.Combo.Marble_Id" class="form-control"
+                                asp-items="@(new SelectList(Model.Marbles, "Id", "Name"))">
+                            <option>Please select one</option>
+                        </select>
+
+                    </div>
+                    <div style="margin-bottom:15px" class="form-group">
+                        <label asp-for="@Model.Combo.Decoration_Marble_Id">Decoration Marble</label>
+
+                        <select asp-for="@Model.Combo.Decoration_Marble_Id" class="form-control"
+                                asp-items="@(new SelectList(Model.Decoration_Marbles, "Id", "Name"))">
+                            <option>Please select one</option>
+                        </select>
+
+                    </div>
+                    <div style="margin-bottom:15px" class="form-group">
+                        <label asp-for="@Model.Combo.Toilet_Id">Toilet</label>
+
+                        <select asp-for="@Model.Combo.Toilet_Id" class="form-control"
+                                asp-items="@(new SelectList(Model.Toilets, "Id", "Name"))">
+                            <option>Please select one</option>
+                        </select>
+
+                    </div>
+                    <div style="margin-bottom:15px" class="form-group">
+                        <label asp-for="@Model.Combo.Shower_Id">Shower</label>
+
+                        <select asp-for="@Model.Combo.Shower_Id" class="form-control"
+                                asp-items="@(new SelectList(Model.Showers, "Id", "Name"))">
+                            <option>Please select one</option>
+                        </select>
+
+                    </div>
+                    <div style="margin-bottom:15px" class="form-group">
+                        <label asp-for="@Model.Combo.Sink_Unit_Id">Sink Unit</label>
+
+                        <select asp-for="@Model.Combo.Sink_Unit_Id" class="form-control"
+                                asp-items="@(new SelectList(Model.SinkUnits, "Id", "Name"))">
+                            <option>Please select one</option>
+                        </select>
+
+                    </div>
+                    <div style="margin-bottom:15px" class="form-group">
+                        <label asp-for="@Model.Combo.Mirror_Id">Mirror</label>
+
+                        <select asp-for="@Model.Combo.Mirror_Id" class="form-control"
+                                asp-items="@(new SelectList(Model.Mirrors, "Id", "Name"))">
+                            <option>Please select one</option>
+                        </select>
+
+                    </div>
+                    <div style="margin-bottom:15px" class="form-group">
+                        <label asp-for="@Model.Combo.Decoration_Marble_Count">Decoration Marble Count</label>
+                        <input asp-for="@Model.Combo.Decoration_Marble_Count" class="form-control" placeholder="Price" />
+                        <span asp-validation-for="@Model.Combo.Decoration_Marble_Count"></span>
+                    </div>
+                    <div style="margin-bottom:15px" class="form-group">
+                        <label asp-for="@Model.Combo.Marble_Count">Marble Count</label>
+                        <input asp-for="@Model.Combo.Marble_Count" class="form-control" placeholder="Price" />
+                        <span asp-validation-for="@Model.Combo.Marble_Count"></span>
+                    </div>
+                    
+                    <input type="submit" value="Add" class="btn btn-xs btn-outline-success" />
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>

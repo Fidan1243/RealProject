@@ -2,13 +2,15 @@
 @model Project.UI.Models.ProductModifyModel
 
 @{
-    ViewData["Title"] = "AddProduct";
-    ViewData["Username"] = @Model.UserName;
-    ViewData["Role"] = @Model.UserRole;
+    ViewData["Title"] = "Add Product";
+    ViewData["Username"] = @Model.User.UserName;
+    ViewData["Role"] = @Model.User.Role;
+    ViewData["Models"] = @Model.Models;
+    ViewData["Materials"] = @Model.Materials;
     Layout = "~/Views/Shared/_Layout1.cshtml";
 }
 <h2>
-    Update product
+    Add product
 </h2>
 
 <div class="container">
@@ -61,11 +63,6 @@
                         <label asp-for="@Model.File">Image</label>
                         <input asp-for="@Model.File" class="form-control" placeholder="Image Path" type="file" />
                         <span asp-validation-for="@Model.File"></span>
-                    </div>
-                    <div style="margin-bottom:15px" class="form-group">
-                        <label asp-for="@Model.Product.OrderCount">Order Count</label>
-                        <input asp-for="@Model.Product.OrderCount" class="form-control" placeholder="OrderCount" />
-                        <span asp-validation-for="@Model.Product.OrderCount"></span>
                     </div>
                     <input type="submit" value="Update" class="btn btn-xs btn-outline-success" />
                 </form>

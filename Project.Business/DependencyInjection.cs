@@ -18,6 +18,8 @@ namespace Project.Business
             services.AddScoped<IComboCommentService, ComboCommentService>();
             services.AddScoped<IMaterialService, MaterialService>();
             services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<IOrderService, OrderService>();
+            services.AddScoped<IOrderStatusService, OrderStatusService>();
             services.AddScoped<IModelService, ModelService>();
             services.AddScoped<IUserService, UserService>();
 

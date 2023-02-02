@@ -6,17 +6,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Project.Business;
-using Project.Business.Abstract;
-using Project.Business.Concrete;
 using Project.DataAccess;
-using Project.DataAccess.Abstract;
-using Project.DataAccess.Concrete;
 using Project.UI.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using WebApplication.DataAccess.Abstract;
+using Project.UI.Services;
 
 namespace Project.UI
 {
@@ -33,7 +25,7 @@ namespace Project.UI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddBusiness().AddDataAccess();
-
+            services.AddScoped<ICartSessionService, CartSessionService>();
             services.AddHttpContextAccessor();
 
             services.AddDbContext<CustomeIdentityDbContext>(

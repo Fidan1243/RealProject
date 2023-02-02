@@ -1,0 +1,51 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model Project.UI.Models.ModelViewModel
+
+@{
+    ViewData["Title"] = "Update Model";
+    ViewData["Username"] = @Model.User.UserName;
+    ViewData["Role"] = @Model.User.Role;
+    ViewData["Materials"] = @Model.Materials;
+    ViewData["Models"] = @Model.Models;
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+<h2>
+    Update product
+</h2>
+
+<div class="container">
+    <div id="loginbox" style="margin-top:50px;"
+         class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+        <div class="panel panel-info">
+
+            <div style="padding-top:30px;" class="panel-body">
+                <div style="display:none;" id="login-alert"
+                     class="alert alert-danger col-sm-12">
+                </div>
+
+
+
+
+                <form asp-controller="Admin" asp-action="UpdateModel" enctype="multipart/form-data" role="form" method="post">
+                    <div style="margin-bottom:15px;" hidden class="form-group">
+                        <label asp-for="@Model.Model.Id">Id</label>
+                        <input asp-for="@Model.Model.Id" class="form-control" placeholder="Id" />
+                        <span asp-validation-for="@Model.Model.Id"></span>
+                    </div>
+                    <div style="margin-bottom:15px" class="form-group">
+                        <label asp-for="@Model.Model.Name">Name</label>
+                        <input asp-for="@Model.Model.Name" class="form-control" placeholder="Name" />
+                        <span asp-validation-for="@Model.Model.Name"></span>
+                    </div>
+                    <div style="margin-bottom:15px" class="form-group">
+                        <label asp-for="@Model.File">Image Path</label>
+                        <input asp-for="@Model.File" class="form-control" placeholder="File" />
+                        <span asp-validation-for="@Model.File"></span>
+                    </div>
+                    <input type="submit" value="Update" class="btn btn-xs btn-outline-success" />
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>

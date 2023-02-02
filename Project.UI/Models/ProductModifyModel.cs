@@ -10,7 +10,6 @@ namespace Project.UI.Models
         public IFormFile File { get; set; }
         public List<Material> Materials { get; set; }
         public List<Model> Models { get; set; }
-        public string UserRole { get; set; }
-        public string UserName { get; set; }
+        public User User { get; set; }
     }
 }

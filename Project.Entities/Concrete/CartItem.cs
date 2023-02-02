@@ -11,6 +11,5 @@ namespace Project.Entities.Concrete
         public int Product_Id { get; set; }
         public int Cart_Id { get; set; }
         public int Quantity { get; set; }
-        public DateTime Time { get; set; } = DateTime.Now;
     }
 }

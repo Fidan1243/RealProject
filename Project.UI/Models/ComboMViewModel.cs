@@ -7,7 +7,7 @@ namespace Project.UI.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string UserName { get; set; }
+        public string User_Id { get; set; }
         public Product Marble { get; set; }
         public Product Decoration_Marble { get; set; }
         public Product SinkUnit { get; set; }

@@ -6,7 +6,9 @@ namespace Project.UI.Models
     public class ProductListViewModel
     {
         public List<Product> Products { get; set; }
-        public string UserRole { get; set; }
-        public string UserName { get; set; }
+        public List<Model> Models { get; set; }
+        public List<Material> Materials { get; set; }
+        public CartViewModel Cart { get; set; }
+        public User User { get; set; }
     }
 }

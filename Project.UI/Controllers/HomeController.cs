@@ -1,13 +1,18 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Project.Business.Abstract;
 using Project.Entities.Concrete;
 using Project.UI.Helpers;
 using Project.UI.Models;
+using Project.UI.Services;
+using Project.UI.Statics;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace Project.UI.Controllers
 {
@@ -16,69 +21,106 @@ namespace Project.UI.Controllers
     {
         private IProductService _productService;
         private IModelService _modelService;
+        private IMaterialService _materialService;
         private IComboService _comboService;
-        private readonly ComboProductsHelper _chelper; 
-        private string role = "";
-        private string UserName = ""; 
-        public HomeController(IProductService productService, IComboService comboService, IModelService modelService, IHttpContextAccessor httpContextAccessor)
+        private IUserService _userService;
+        private readonly ComboProductsHelper _chelper;
+        private readonly ICartSessionService _carthelper;
+        private ProductModifyHelper _mhelper;
+        private User user;
+        public HomeController(IWebHostEnvironment _webHost, ICartSessionService CartService, IProductService productService, IComboService comboService, IModelService modelService, IUserService userService, IMaterialService materialService)
         {
             _productService = productService;
             _comboService = comboService;
             _modelService = modelService;
-            _chelper = new ComboProductsHelper(_productService, _modelService);
-            UserName = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Name).Value;
-            role = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Role).Value;
+            _carthelper = CartService;
+            _chelper = new ComboProductsHelper(_productService, _modelService, _carthelper,materialService);
+            _userService = userService;
+            _materialService = materialService;
+            _mhelper = new ProductModifyHelper(_webHost, _productService, _modelService, _materialService, CartService);
+        }
+        List<Model> Models { get; set; }
+        public async Task<IActionResult> Index(int modelId = 0, int materialId = 0)
+        {
+            user = Static.UserStart(this, _userService);
+            var vm = await _mhelper.Product(modelId,materialId);
+            vm.User = user;
+            return View(vm);
+        }
+        public async Task<IActionResult> Product(int productId)
+        {
+            user = Static.UserStart(this, _userService);
+            var vm = await _mhelper.ProductDetails(productId);
+            vm.MainMaterials = _materialService.GetMaterials();
+            vm.User = user;
+            return View(vm);
+        }
+        public async Task<IActionResult> Products(int modelId=0,int materialId=0)
+        {
+            user = Static.UserStart(this, _userService);
+            var vm = await _mhelper.Product(modelId, materialId);
+            vm.User = user;
+            return View(vm);
+        }
+        public IActionResult AddToCart(int productId,int Quantity = 1)
+        {
+            _carthelper.AddCartItem(productId, Quantity);
+            return RedirectToAction("Index");
+        }
+        public IActionResult Cart()
+        {
+            user = Static.UserStart(this, _userService);
 
-        }
-        public IActionResult Index()
-        {
-            var products = _productService.GetProducts();
-            var vm = new ProductListViewModel()
-            {
-                Products = products,
-                UserRole = role,
-                UserName = UserName
-            };
+            var vm =_carthelper.GetCart();
+
+            vm.Models = _modelService.GetModels();
+            vm.Materials = _materialService.GetMaterials();
+            vm.User = user;
             return View(vm);
         }
-        public IActionResult Product(int productId)
-        {
-            var product = _productService.GetProduct(productId);
-            var vm = new ProductViewModel()
-            {
-                Product = product,
-                UserRole = role,
-                UserName = UserName
-            };
-            return View(vm);
-        }
+
         public IActionResult Combination(int comboId)
         {
+            user = Static.UserStart(this, _userService);
             var combo = _chelper.ViewModel(_comboService.GetCombo(comboId));
 
             var vm = new ComboViewModel()
             {
                 Combo = combo,
-                UserRole = role,
-                UserName = UserName
+                Models = _modelService.GetModels(),
+                Materials = _materialService.GetMaterials(),
+                User = user
             };
             return View(vm);
         }
         public IActionResult Combinations()
         {
+            user = Static.UserStart(this, _userService);
             var combolist = _chelper.ListViewModel(_comboService.GetCombos());
             var vm = new ComboListViewModel()
             {
                 Combos = combolist,
-                UserName = UserName,
-                UserRole = role,
+                Models = _modelService.GetModels(),
+                Materials = _materialService.GetMaterials(),
+                User = user
             };
             return View(vm);
         }
         public IActionResult CreateCombination()
         {
-            var vm = _chelper.CreateViewModel();
+
+            user = Static.UserStart(this, _userService);
+            var vm = _chelper.CreateViewModel(user);
             return View(vm);
+        }
+
+        [HttpPost]
+        public IActionResult CreateCombination(Combo combo)
+        {
+            user = Static.UserStart(this, _userService);
+            combo.User_Id = user.Id;   
+            _comboService.AddCombo(combo);
+            return RedirectToAction("Index", "Home");
         }
     }
 }

@@ -17,6 +17,8 @@ namespace Project.DataAccess
             services.AddScoped<ICartItemDal, EfCartItemDal>();
             services.AddScoped<IComboLikeDal, EfComboLikeDal>();
             services.AddScoped<IComboCommentDal, EfComboCommentDal>();
+            services.AddScoped<IOrderDal, EfOrderDal>();
+            services.AddScoped<IOrderStatusDal, EfOrderStatusDal>();
             services.AddScoped<IMaterialDal, EfMaterialDal>();
             services.AddScoped<IProductDal, EfProductDal>();
             services.AddScoped<IModelDal, EfModelDal>();

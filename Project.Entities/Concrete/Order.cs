@@ -1,7 +1,5 @@
 ﻿using Project.Core.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
+
 
 namespace Project.Entities.Concrete
 {
@@ -11,6 +9,6 @@ namespace Project.Entities.Concrete
         public int Product_Id { get; set; }
         public int Quantity { get; set; }
         public int User_Id { get; set; }
-        public string Status { get; set; }
+        public int Status_Id { get; set; }
     }
 }

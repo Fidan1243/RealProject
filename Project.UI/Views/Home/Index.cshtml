@@ -2,39 +2,243 @@
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 @{
-    ViewData["Title"] = "Index";
-    ViewData["Username"] = @Model.UserName;
-    ViewData["Role"] = @Model.UserRole;
+    ViewData["Title"] = "Home Page";
+    ViewData["Username"] = @Model.User.UserName;
+    ViewData["Role"] = @Model.User.Role;
+    ViewData["Models"] = @Model.Models;
+    ViewData["Materials"] = @Model.Materials;
     Layout = "~/Views/Shared/_Layout1.cshtml";
 }
 
-<h1>Index</h1>
-@if(@Model.UserRole == "Admin")
-{
-<a asp-controller="Admin" asp-action="AddProduct" class="btn btn-success">Add</a>
     
+@if   (@Model.User.Role == "Admin")
+{
+                                                    <a asp-controller="Admin" asp-action="AddProduct" style="margin:40px;">Add Product</a>
 }
-
-<div class="d-flex justify-content-around flex-wrap p-4">
-    @foreach (var item in Model.Products)
-    {
-        <div class="card m-4" style="width: 18rem;">
-            <a class="text-decoration-none text-black-50" asp-controller="Home"
-           asp-action="Product" asp-route-productId="@item.Id">
-
-                <img src="~/images/@item.ImagePath" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">@item.Name</h5>
-                    <p class="card-text">@item.Price</p>
-                    @if (@Model.UserRole == "Admin")
-                    {
-                        <a asp-controller="Admin" asp-action="UpdateProduct" asp-route-productId="@item.Id" class="btn btn-primary">Update</a>
-                        <a asp-controller="Admin" asp-action="DeleteProduct" asp-route-productId="@item.Id" class="btn btn-danger">Delete</a>
-
-                    }
+    <div class="product-default-slider-section section-top-gap-100 section-fluid">
+        
+        <div class="section-title-wrapper aos-init aos-animate" data-aos="fade-up" data-aos-delay="0">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="section-content-gap">
+                            <div class="secton-content">
+                                <h3 class="section-title">the Best Sellers</h3>
+                                <p>Preorder now to receive exclusive deals &amp; gifts</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </a>
+            </div>
         </div>
+        
+        <div class="product-wrapper aos-init aos-animate" data-aos="fade-up" data-aos-delay="200">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="product-slider-default-1row default-slider-nav-arrow">
+                            <!-- Slider main container -->
+                            <div class="swiper-container product-default-slider-4grid-1row swiper-container-initialized swiper-container-horizontal">
+                                <!-- Additional required wrapper -->
+                                <div class="swiper-wrapper" id="swiper-wrapper-a7b185e597de019a" aria-live="polite" style="transform: translate3d(0px, 0px, 0px);">
+                                    @foreach(var item in @Model.Products){
+                                        @if(item.OrderCount > 40 && item.Model_Id == 12){
 
-    }
-</div>
+                                    <div class="product-default-single-item product-color--green swiper-slide" role="group" aria-label="3 / 8" style="width: 4837.5px; margin-right: 30px;">
+                                        <div class="image-box">
+                                            <a  asp-action="Product" asp-controller="Home" asp-route-productId="@item.Id" class="card-img-top">
+                                                <img src="~/images/@item.ImagePath" alt="">
+                                                <img src="~/images/@item.ImagePath" alt="">
+                                            </a>
+                                            <div class="action-link">
+                                                <div class="action-link-left">
+                                                    <a href="#" data-bs-toggle="modal" data-bs-target="#modalAddcart">Add</a>
+                                                </div>
+                                                <div class="action-link-right">
+                                                    <a href="#" data-bs-toggle="modal" data-bs-target="#modalQuickview"><i class="icon-magnifier"></i></a>
+                                                        @if(@Model.User.Role == "Admin")
+                                                        {
+                                                    <a asp-controller="Admin" asp-action="UpdateProduct" asp-route-productId="@item.Id">U</a>
+                                                    <a asp-controller="Admin" asp-action="DeleteProduct" asp-route-productId="@item.Id">D</a>
+                                                            
+                                                        }
+                                                    </div>
+                                            </div>
+                                        </div>
+                                        <div class="content">
+                                            <div class="content-left">
+                                                <h6 class="title"><a  asp-action="Product" asp-controller="Home" asp-route-productId="@item.Id">@item.Name</a></h6>
+                                                <ul class="review-star">
+                                                @if(item.OrderCount > 10){
+
+                                                <li class="fill"><i class="ion-android-star"></i></li>
+                                                }
+                                                @if(item.OrderCount > 20){
+
+                                                <li class="fill"><i class="ion-android-star"></i></li>
+                                                }
+                                                @if(item.OrderCount > 30){
+
+                                                <li class="fill"><i class="ion-android-star"></i></li>
+                                                }
+                                                @if(item.OrderCount > 40){
+
+                                                <li class="fill"><i class="ion-android-star"></i></li>
+                                                }
+                                                @if(item.OrderCount > 50){
+
+                                                <li class="fill"><i class="ion-android-star"></i></li>
+                                                }
+                                                </ul>
+                                            </div>
+                                            <div class="content-right">
+                                                <span class="price">$@item.Price</span>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                        }
+                                    }
+                                </div>
+                            <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span><span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span></div>
+                            <!-- If we need navigation buttons -->
+                            <div class="swiper-button-prev swiper-button-disabled" tabindex="-1" role="button" aria-label="Previous slide" aria-controls="swiper-wrapper-a7b185e597de019a" aria-disabled="true"></div>
+                            <div class="swiper-button-next" tabindex="0" role="button" aria-label="Next slide" aria-controls="swiper-wrapper-a7b185e597de019a" aria-disabled="false" fdprocessedid="j7ml7s"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+    
+    <div class="banner-section section-top-gap-100">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12">
+                    <!-- Start Banner Single Item -->
+                    <div class="banner-single-item banner-style-6 banner-animation img-responsive aos-init aos-animate" data-aos="fade-up" data-aos-delay="0">
+                        <div class="image">
+                            <img src="~/images/bathh.jpg" alt="">
+                        </div>
+                        <div class="content">
+                            <h2 class="title">The Pearl Of Your Bath</h2>
+                            <p>On a mission to create all-natural .</p>
+                            <a href="product-details-default.html" class="btn btn-lg btn-outline-green icon-space-left"><span class="d-flex align-items-center">Browse <i class="ion-ios-arrow-thin-right"></i></span></a>
+                        </div>
+                    </div>
+                    <!-- End Banner Single Item -->
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+    
+    
+    
+
+    
+    <div class="banner-section section-top-gap-100">
+        <div class="banner-wrapper clearfix">
+            <!-- Start Banner Single Item -->
+        @foreach(var item in @Model.Models)
+        {
+            @if(item.Name == "Sink Units" || item.Name == "Mirrors" || item.Name == "Showers" || item.Name == "Toilets"){
+
+            <div class="banner-single-item banner-style-4 banner-animation banner-color--green float-left aos-init aos-animate" data-aos="fade-up" data-aos-delay="0">
+                <div class="image">
+                    <img class="img-fluid" src="~/images/@item.ImagePath" alt="">
+                </div>
+                <a href="product-details-default.html" class="content">
+                    <div class="inner">
+                        <h4 class="title">@item.Name</h4>
+                    </div>
+                    <span class="round-btn"><i class="ion-ios-arrow-thin-right"></i></span>
+                </a>
+            </div>
+            }
+        }
+        </div>
+    </div>
+    
+
+    
+    <div class="product-list-slider-section section-top-gap-100 section-fluid">
+        <!-- Start Section Content Text Area -->
+        <div class="section-title-wrapper aos-init aos-animate" data-aos="fade-up" data-aos-delay="0">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="section-content-gap">
+                            <div class="secton-content">
+                                <h3 class="section-title">Best Sellers</h3>
+                                <p>Add our best sellers to your weekly lineup.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Start Section Content Text Area -->
+        <div class="product-wrapper aos-init aos-animate" data-aos="fade-up" data-aos-delay="200">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="product-list-slider-3rows default-slider-nav-arrow">
+                            <!-- Slider main container -->
+                            <div class="swiper-container product-listview-slider-4grid-3rows swiper-container-initialized swiper-container-horizontal">
+                                <!-- Additional required wrapper -->
+                                <div class="swiper-wrapper" id="swiper-wrapper-2d23434cbb070fc7" aria-live="polite" style="width: 9600px; transform: translate3d(0px, 0px, 0px);">
+                                    @foreach(var item in @Model.Products){
+                                    <div class="product-listview-single-item product-color--green swiper-slide swiper-slide-next" role="group" aria-label="2 / 15" style="width: 1890px; margin-right: 30px;">
+                                        <div class="image-box">
+                                            <a asp-action="Product" asp-controller="Home" asp-route-productId="@item.Id" class="image-link">
+                                                <img src="~/images/@item.ImagePath" alt="">
+                                            </a>
+                                        </div>
+                                        <div class="content">
+                                            <h6 class="title"><a asp-action="Product" asp-controller="Home" asp-route-productId="@item.Id">@item.Name</a></h6>
+                                            <ul class="review-star">
+                                                @if(item.OrderCount > 10){
+
+                                                <li class="fill"><i class="ion-android-star"></i></li>
+                                                }
+                                                @if(item.OrderCount > 20){
+
+                                                <li class="fill"><i class="ion-android-star"></i></li>
+                                                }
+                                                @if(item.OrderCount > 30){
+
+                                                <li class="fill"><i class="ion-android-star"></i></li>
+                                                }
+                                                @if(item.OrderCount > 40){
+
+                                                <li class="fill"><i class="ion-android-star"></i></li>
+                                                }
+                                                @if(item.OrderCount > 50){
+
+                                                <li class="fill"><i class="ion-android-star"></i></li>
+                                                }
+                                            </ul>
+                                            <span class="price">$@item.Price</span>
+                                        </div>
+                                    </div>
+                                    }
+                                    
+                                </div>
+                            <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span><span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span></div>
+                            <!-- If we need navigation buttons -->
+                            <div class="swiper-button-prev d-none d-md-block swiper-button-disabled" tabindex="-1" role="button" aria-label="Previous slide" aria-controls="swiper-wrapper-2d23434cbb070fc7" aria-disabled="true"></div>
+                            <div class="swiper-button-next d-none d-md-block" tabindex="0" role="button" aria-label="Next slide" aria-controls="swiper-wrapper-2d23434cbb070fc7" aria-disabled="false" fdprocessedid="nsuh9"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+    
+    

@@ -2,9 +2,11 @@
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 @{
-    ViewData["Title"] = "Index";
-    ViewData["Username"] = @Model.UserName;
-    ViewData["Role"] = @Model.UserRole;
+    ViewData["Title"] = "Combos";
+    ViewData["Username"] = @Model.User.UserName;
+    ViewData["Role"] = @Model.User.Role;
+    ViewData["Models"] = @Model.Models;
+    ViewData["Materials"] = @Model.Materials;
     Layout = "~/Views/Shared/_Layout1.cshtml";
 }
 
@@ -23,7 +25,7 @@
                 <div class="card-body">
                     <h5 class="card-title">@item.Name</h5>
                     <p class="card-text">@item.Total</p>
-                    @if (item.UserName == Model.UserName || Model.UserRole == "Admin")
+                    @if (item.User_Id == Model.User.User_Id || Model.User.Role == "Admin")
                     {
                         <a asp-controller="Admin" asp-action="UpdateCombination" asp-route-productId="@item.Id" class="btn btn-primary">Update</a>
                         <a asp-controller="Admin" asp-action="DeleteCombination" asp-route-productId="@item.Id" class="btn btn-danger">Delete</a>

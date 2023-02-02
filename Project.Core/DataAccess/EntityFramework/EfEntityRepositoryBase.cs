@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Project.Core.DataAccess.EntityFramework
 {
@@ -12,21 +13,21 @@ namespace Project.Core.DataAccess.EntityFramework
          : IEntityRepository<TEntity> where TEntity : class, IEntity, new()
         where TContext : DbContext, new()
     {
-        public void Add(TEntity entity)
+        public async void Add(TEntity entity)
         {
             using (var context = new TContext())
             {
                 context.Entry(entity).State = EntityState.Added;
-                context.SaveChanges();
+               await context.SaveChangesAsync();
             }
         }
 
-        public void Delete(TEntity entity)
+        public async void Delete(TEntity entity)
         {
             using (var context = new TContext())
             {
                 context.Entry(entity).State = EntityState.Deleted;
-                context.SaveChanges();
+                await context.SaveChangesAsync();
             }
         }
 

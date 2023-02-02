@@ -27,15 +27,31 @@ namespace Project.Business.Concrete
             return product;
         }
 
+        public List<Product> GetProductByCategories(int modelId, int materialId)
+        {
+            return _productDal.GetList(p => p.Model_Id == modelId || modelId == 0 && p.Material_Id == materialId || materialId == 0);
+        }
+
+        public List<Product> GetProductByMaterial(int id)
+        {
+            return _productDal.GetList(p => p.Material_Id == id || id == 0);
+        }
+
         public List<Product> GetProductByModel(int id)
         {
-            var product = _productDal.GetList(g => g.Model_Id == id);
+            var product = _productDal.GetList(g => g.Model_Id == id || id == 0);
             return product;
         }
 
         public List<Product> GetProducts()
         {
             var product = _productDal.GetList();
+            return product;
+        }
+
+        public List<Product> GetProductsByName(string productName)
+        {
+            var product = _productDal.GetList(g => g.Name == productName);
             return product;
         }
 

@@ -1,6 +1,7 @@
 ﻿using Project.Business.Abstract;
 using Project.Entities.Concrete;
 using Project.UI.Models;
+using Project.UI.Services;
 using Project.UI.Statics;
 using System.Collections.Generic;
 
@@ -10,21 +11,23 @@ namespace Project.UI.Helpers
     {
         private IProductService _productService;
         private IModelService _modelService;
-
-        public ComboProductsHelper(IProductService productService, IModelService modelService)
+        private IMaterialService _materialService;
+        private ICartSessionService _cartService;
+        public ComboProductsHelper(IProductService productService, IModelService modelService, ICartSessionService cartSessionService, IMaterialService materialService)
         {
             _productService = productService;
             _modelService = modelService;
+            _materialService = materialService;
         }
-        public ComboProductsViewModel CreateViewModel()
+        public ComboProductsViewModel CreateViewModel(User user)
         {
 
-            var mirror_id = _modelService.GetByName(ComboStatic.Mirrors).Id;
-            var sink_unit_id = _modelService.GetByName(ComboStatic.SinkUnits).Id;
-            var toilet_id = _modelService.GetByName(ComboStatic.Toilets).Id;
-            var shower_id = _modelService.GetByName(ComboStatic.Showers).Id;
-            var marble_id = _modelService.GetByName(ComboStatic.Marbles).Id;
-            var d_marble_id = _modelService.GetByName(ComboStatic.Decoration_Marbles).Id;
+            var mirror_id = _modelService.GetByName(Static.Mirrors).Id;
+            var sink_unit_id = _modelService.GetByName(Static.SinkUnits).Id;
+            var toilet_id = _modelService.GetByName(Static.Toilets).Id;
+            var shower_id = _modelService.GetByName(Static.Showers).Id;
+            var marble_id = _modelService.GetByName(Static.Marbles).Id;
+            var d_marble_id = _modelService.GetByName(Static.Decoration_Marbles).Id;
 
             var toilets = _productService.GetProductByModel(toilet_id);
             var mirrors = _productService.GetProductByModel(mirror_id);
@@ -40,7 +43,10 @@ namespace Project.UI.Helpers
                 SinkUnits = sink_units,
                 Showers = showers,
                 Marbles = marbles,
-                Decoration_Marbles = decoration_marbles
+                Decoration_Marbles = decoration_marbles,
+                Models = _modelService.GetModels(),
+                Materials = _materialService.GetMaterials(),
+                User = user
             };
         }
         public List<ComboMViewModel> ListViewModel(List<Combo> combos)
