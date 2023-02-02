@@ -12,5 +12,6 @@ namespace Project.Business.Abstract
         List<CartItem> GetCartItemsByCart(int id);
         void AddCartItem(CartItem cartItem);
         void RemoveCartItem(int id);
+        void UpdateCartItem(CartItem cartItem);
     }
 }

@@ -37,9 +37,7 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="product-slider-default-1row default-slider-nav-arrow">
-                            <!-- Slider main container -->
                             <div class="swiper-container product-default-slider-4grid-1row swiper-container-initialized swiper-container-horizontal">
-                                <!-- Additional required wrapper -->
                                 <div class="swiper-wrapper" id="swiper-wrapper-a7b185e597de019a" aria-live="polite" style="transform: translate3d(0px, 0px, 0px);">
                                     @foreach(var item in @Model.Products){
                                         @if(item.OrderCount > 40 && item.Model_Id == 12){
@@ -104,7 +102,6 @@
                                     }
                                 </div>
                             <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span><span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span></div>
-                            <!-- If we need navigation buttons -->
                             <div class="swiper-button-prev swiper-button-disabled" tabindex="-1" role="button" aria-label="Previous slide" aria-controls="swiper-wrapper-a7b185e597de019a" aria-disabled="true"></div>
                             <div class="swiper-button-next" tabindex="0" role="button" aria-label="Next slide" aria-controls="swiper-wrapper-a7b185e597de019a" aria-disabled="false" fdprocessedid="j7ml7s"></div>
                         </div>
@@ -120,7 +117,6 @@
         <div class="container">
             <div class="row">
                 <div class="col-xl-12">
-                    <!-- Start Banner Single Item -->
                     <div class="banner-single-item banner-style-6 banner-animation img-responsive aos-init aos-animate" data-aos="fade-up" data-aos-delay="0">
                         <div class="image">
                             <img src="~/images/bathh.jpg" alt="">
@@ -131,7 +127,6 @@
                             <a href="product-details-default.html" class="btn btn-lg btn-outline-green icon-space-left"><span class="d-flex align-items-center">Browse <i class="ion-ios-arrow-thin-right"></i></span></a>
                         </div>
                     </div>
-                    <!-- End Banner Single Item -->
                 </div>
             </div>
         </div>
@@ -145,7 +140,6 @@
     
     <div class="banner-section section-top-gap-100">
         <div class="banner-wrapper clearfix">
-            <!-- Start Banner Single Item -->
         @foreach(var item in @Model.Models)
         {
             @if(item.Name == "Sink Units" || item.Name == "Mirrors" || item.Name == "Showers" || item.Name == "Toilets"){
@@ -169,7 +163,6 @@
 
     
     <div class="product-list-slider-section section-top-gap-100 section-fluid">
-        <!-- Start Section Content Text Area -->
         <div class="section-title-wrapper aos-init aos-animate" data-aos="fade-up" data-aos-delay="0">
             <div class="container">
                 <div class="row">
@@ -184,15 +177,12 @@
                 </div>
             </div>
         </div>
-        <!-- Start Section Content Text Area -->
         <div class="product-wrapper aos-init aos-animate" data-aos="fade-up" data-aos-delay="200">
             <div class="container">
                 <div class="row">
                     <div class="col-12">
                         <div class="product-list-slider-3rows default-slider-nav-arrow">
-                            <!-- Slider main container -->
                             <div class="swiper-container product-listview-slider-4grid-3rows swiper-container-initialized swiper-container-horizontal">
-                                <!-- Additional required wrapper -->
                                 <div class="swiper-wrapper" id="swiper-wrapper-2d23434cbb070fc7" aria-live="polite" style="width: 9600px; transform: translate3d(0px, 0px, 0px);">
                                     @foreach(var item in @Model.Products){
                                     <div class="product-listview-single-item product-color--green swiper-slide swiper-slide-next" role="group" aria-label="2 / 15" style="width: 1890px; margin-right: 30px;">
@@ -232,7 +222,6 @@
                                     
                                 </div>
                             <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span><span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span></div>
-                            <!-- If we need navigation buttons -->
                             <div class="swiper-button-prev d-none d-md-block swiper-button-disabled" tabindex="-1" role="button" aria-label="Previous slide" aria-controls="swiper-wrapper-2d23434cbb070fc7" aria-disabled="true"></div>
                             <div class="swiper-button-next d-none d-md-block" tabindex="0" role="button" aria-label="Next slide" aria-controls="swiper-wrapper-2d23434cbb070fc7" aria-disabled="false" fdprocessedid="nsuh9"></div>
                         </div>

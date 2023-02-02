@@ -35,16 +35,25 @@ namespace Project.UI.Services
                 _cartService.AddCart(new Cart { User_Id = user.Id });
                 cart = _cartService.GetCarts().FirstOrDefault(i => i.User_Id == user.Id);
             }
+            var ifex = _cartItemService.GetCartItems().FirstOrDefault(i => i.Cart_Id == cart.Id && i.Product_Id == productId);
 
-            _cartItemService.AddCartItem(new CartItem
+            if (ifex != null)
             {
-                Product_Id = productId,
-                Quantity = Quantity,
-                Cart_Id = cart.Id
-            });
+                ifex.Quantity += Quantity;
+                _cartItemService.UpdateCartItem(ifex);
+            }
+            else
+            {
+                _cartItemService.AddCartItem(new CartItem
+                {
+                    Product_Id = productId,
+                    Quantity = Quantity,
+                    Cart_Id = cart.Id
+                });
+            }
         }
 
-        public void BuyCart()
+        public void BuyCart(string address,string city)
         {
             var cart = _cartService.GetCarts().FirstOrDefault(i => i.User_Id == user.Id);
             var viewModelList = new List<CartItemViewModel>();
@@ -65,6 +74,10 @@ namespace Project.UI.Services
                         _orderService.AddOrder(new Order
                         {
                             Product_Id = item.Product_Id,
+                            Status_Id = 1,
+                            User_Id = user.Id,
+                            Address = address,
+                            City = city,
                             Quantity = item.Quantity,
                         });
                     }
@@ -76,7 +89,7 @@ namespace Project.UI.Services
         {
             var list = _cartItemService.GetCartItem(id);
             _cartItemService.RemoveCartItem(id);
-            var prod =_productService.GetProduct(list.Product_Id);
+            var prod = _productService.GetProduct(list.Product_Id);
             prod.Quantity -= list.Quantity <= prod.Quantity ? list.Quantity : prod.Quantity;
             prod.OrderCount += list.Quantity <= prod.Quantity ? list.Quantity : prod.Quantity;
             _productService.UpdateProduct(prod);

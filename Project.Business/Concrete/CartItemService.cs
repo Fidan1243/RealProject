@@ -43,5 +43,10 @@ namespace Project.Business.Concrete
         {
             _cartItemDal.Delete(GetCartItem(id));
         }
+
+        public void UpdateCartItem(CartItem cartItem)
+        {
+            _cartItemDal.Update(cartItem);
+        }
     }
 }

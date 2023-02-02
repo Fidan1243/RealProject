@@ -10,8 +10,7 @@
     Layout = "~/Views/Shared/_Layout1.cshtml";
 }
 
-<div class="cart-section">
-        <!-- Start Cart Table -->
+<div class="cart-section" style="margin-top:30px;">
         <div class="cart-table-wrapper aos-init aos-animate" data-aos="fade-up" data-aos-delay="0">
             <div class="container">
                 <div class="row">
@@ -19,7 +18,6 @@
                         <div class="table_desc">
                             <div class="table_page table-responsive">
                                 <table>
-                                    <!-- Start Cart Table Head -->
                                     <thead>
                                         <tr>
                                             <th class="product_remove">Delete</th>
@@ -29,22 +27,20 @@
                                             <th class="product_quantity">Quantity</th>
                                             <th class="product_total">Total</th>
                                         </tr>
-                                    </thead> <!-- End Cart Table Head -->
+                                    </thead>
                                     <tbody>
-                                        <!-- Start Cart Single Item-->
                                         @foreach (var item in @Model.CartItems)
                                        {
                                         <tr>
                                             <td class="product_remove">
                                                 <a asp-action="DeleteFromCart" asp-controller="Home" asp-route-itemId="@item.CartItem.Id"><i class="fa fa-trash-o"></i></a>
                                             </td>
-                                            <td class="product_thumb"><a href="product-details-default.html"><img src="~/images/@item.Product.ImagePath" alt=""></a></td>
-                                            <td class="product_name"><a href="product-details-default.html">@item.Product.Name</a></td>
+                                            <td class="product_thumb"><a  asp-action="Product" asp-controller="Home" asp-route-productId="@item.Product.Id"><img src="~/images/@item.Product.ImagePath" alt=""></a></td>
+                                            <td class="product_name"><a asp-action="Product" asp-controller="Home" asp-route-productId="@item.Product.Id">@item.Product.Name</a></td>
                                             <td class="product-price">$@item.Product.Price</td>
                                             <td class="product_quantity"><label>Quantity</label> <input min="1" max="100" value="@item.CartItem.Quantity" type="number"></td>
                                             <td class="product_total">$@((item.Product.Price * item.CartItem.Quantity).ToString())</td>
-                                        </tr> <!-- End Cart Single Item-->
-                                           
+                                        </tr>
                                        }
                                     </tbody>
                                 </table>
@@ -56,22 +52,11 @@
                     </div>
                 </div>
             </div>
-        </div> <!-- End Cart Table -->
+        </div>
 
-        <!-- Start Coupon Start -->
         <div class="coupon_area">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-6 col-md-6">
-                        <div class="coupon_code left aos-init aos-animate" data-aos="fade-up" data-aos-delay="200">
-                            <h3>Coupon</h3>
-                            <div class="coupon_inner">
-                                <p>Enter your coupon code if you have one.</p>
-                                <input class="mb-2" placeholder="Coupon code" type="text">
-                                <button type="submit" class="btn btn-md btn-golden">Apply coupon</button>
-                            </div>
-                        </div>
-                    </div>
                     <div class="col-lg-6 col-md-6">
                         <div class="coupon_code right aos-init aos-animate" data-aos="fade-up" data-aos-delay="400">
                             <h3>Cart Totals</h3>
@@ -86,7 +71,7 @@
                                 </div>
                                 <div class="checkout_btn">
                                     @if(Model.Total > 0){
-                                    <a href="#" class="btn btn-md btn-golden">Proceed to Checkout</a>
+                                    <a asp-action="Checkout" asp-controller="Home" class="btn btn-md btn-golden">Proceed to Checkout</a>
                                     }
                                 </div>
                             </div>
@@ -94,5 +79,5 @@
                     </div>
                 </div>
             </div>
-        </div> <!-- End Coupon Start -->
+        </div>
     </div>

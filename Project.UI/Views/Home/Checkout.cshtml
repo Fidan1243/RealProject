@@ -1,0 +1,105 @@
+﻿@model Project.UI.Models.CartViewModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "Cart";
+    ViewData["Models"] = @Model.Models;
+    ViewData["Materials"] = @Model.Materials;
+    ViewData["Username"] = @Model.User.UserName;
+    ViewData["Role"] = @Model.User.Role;
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+
+<div class="checkout-section">
+    <div class="container">
+
+        <div class="checkout_form aos-init aos-animate" data-aos="fade-up" data-aos-delay="400">
+            <form asp-action="Order" asp-controller="Home" method="post">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6">
+                        <h3>Billing Details</h3>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="default-form-box">
+                                    <label>First Name <span>*</span></label>
+                                    <input disabled value="@Model.User.Name" type="text">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="default-form-box">
+                                    <label>Last Name <span>*</span></label>
+                                    <input disabled value="@Model.User.Surname" type="text">
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="default-form-box">
+                                    <label>Company Name</label>
+                                    <input disabled value="Altos" type="text">
+                                </div>
+                            </div>
+                            <div class="col-12">
+
+                                <div class="col-12">
+                                    <div class="default-form-box">
+                                        <label>Street address <span>*</span></label>
+                                        <input name="Address" placeholder="House number and street name" type="text">
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="default-form-box">
+                                        <label>Town / City <span>*</span></label>
+                                        <input name="City" type="text">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="default-form-box">
+                                        <label> Email Address <span>*</span></label>
+                                        <input value="@Model.User.Email" type="text">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                     </div>
+                     <div class="col-lg-6 col-md-6">
+                            <h3>Your order</h3>
+                            <div class="order_table table-responsive">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Product</th>
+                                            <th>Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in @Model.CartItems)
+                                        {
+                                            <tr>
+                                                <td> @item.Product.Name <strong> × @item.CartItem.Quantity</strong></td>
+                                                <td> $@((item.Product.Price * item.CartItem.Quantity).ToString())</td>
+                                            </tr>
+
+                                        }
+                                    </tbody>
+                                    <tfoot>
+                                        <tr class="order_total">
+                                            <th>Order Total</th>
+                                            <td><strong>$@Model.Total</strong></td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                            <div class="payment_method">
+
+
+                                <div class="order_button pt-3">
+                                    <button class="btn btn-md btn-black-default-hover" type="submit">Order Product</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+            </form>
+        </div> 
+    </div>
+</div>

@@ -134,6 +134,24 @@ namespace Project.UI.Controllers
             var vm = _chelper.CreateViewModel(user);
             return View(vm);
         }
+        public IActionResult Checkout()
+        {
+            user = Static.UserStart(this, _userService);
+
+            var vm = _carthelper.GetCart();
+
+            vm.Models = _modelService.GetModels();
+            vm.Materials = _materialService.GetMaterials();
+            vm.User = user;
+            return View(vm);
+        }
+        public IActionResult Order(string City, string Address)
+        {
+            user = Static.UserStart(this, _userService);
+
+            _carthelper.BuyCart(Address,City);
+            return Redirect("Index");
+        }
 
         [HttpPost]
         public IActionResult CreateCombination(Combo combo)
