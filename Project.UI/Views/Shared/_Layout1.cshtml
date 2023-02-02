@@ -97,7 +97,7 @@
                                                 <ul class="mega-menu-inner">
                                                     <!-- Mega Menu Sub Link -->
                                                     <li class="mega-menu-item">
-                                                        <a href="#" class="mega-menu-item-title">Products</a>
+                                                        <a href="#" class="mega-menu-item-title">Models</a>
                                                         <ul class="mega-menu-sub">
                                                             @foreach (var item in ViewBag.Models)
                                                             {
@@ -142,6 +142,8 @@
                                                     </li>
                                                     <!-- Mega Menu Sub Link -->
                                                     <li class="mega-menu-item">
+                                                        <a href="#" class="mega-menu-item-title">Materials</a>
+
                                                         <ul class="mega-menu-sub">
                                                             @foreach (var item in ViewBag.Materials)
                                                             {
@@ -577,14 +579,14 @@
                             <!-- Start Footer Single Item -->
                             <div class="footer-widget-single-item footer-widget-color--green" data-aos="fade-up"
                                  data-aos-delay="400">
-                                <h5 class="title">CATEGORIES</h5>
+                                <h5 class="title">MODELS</h5>
                                 <ul class="footer-nav">
-                                   
-                                    <li><a href="#">Decorative</a></li>
-                                    <li><a href="#">Kitchen utensils</a></li>
-                                    <li><a href="#">Chair & Bar stools</a></li>
-                                    <li><a href="#">Sofas and Armchairs</a></li>
-                                    <li><a href="#">Interior lighting</a></li>
+                                    @foreach (var item in ViewBag.Models)
+                                    {
+                                        <li><a asp-action="Products" asp-controller="Home" asp-route-modelId="@item.Id">@item.Name</a></li>
+
+                                    }
+
                                 </ul>
                             </div>
                             <!-- End Footer Single Item -->
@@ -596,9 +598,8 @@
                                 <h5 class="title">ABOUT US</h5>
                                 <div class="footer-about">
                                     <p>
-
-                                        We are a team of designers and developers that create high quality Magento,
-                                        Prestashop, Opencart.
+                                        First of all, quality and beauty of your bath is everything for us,
+                                        and our misson is make sure that people get the best things for their bath
 
                                     </p>
 

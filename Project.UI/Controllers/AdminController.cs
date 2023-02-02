@@ -192,8 +192,8 @@ namespace Project.UI.Controllers
         public IActionResult Accounts()
         {
             user = Static.UserStart(this, _userService);
-            var r =  _userManager.Users.ToList();
-            return View();
+            var r =  _userService.GetUsers();
+            return View(r);
         }
     }
 }

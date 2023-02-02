@@ -14,6 +14,10 @@ namespace Project.UI.Statics
         public static string Showers = "Showers";
         public static string Marbles = "Marbles";
         public static string Decoration_Marbles = "Decoration Marbles";
+        public static string Open = "Open";
+        public static string Pending = "Pending";
+        public static string Canceled = "Canceled";
+        public static string Completed = "Completed";
         public static User UserStart(ControllerBase controllerBase, IUserService service)
         {
             ClaimsPrincipal currentUser = controllerBase.User;

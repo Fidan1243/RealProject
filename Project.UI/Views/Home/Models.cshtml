@@ -1,0 +1,39 @@
+﻿@model Project.UI.Models.ProductListViewModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "Models";
+    ViewData["Username"] = @Model.User.UserName;
+    ViewData["Role"] = @Model.User.Role;
+    ViewData["Models"] = @Model.Models;
+    ViewData["Materials"] = @Model.Materials;
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+
+
+@if (@Model.User.Role == "Admin")
+{
+    <a asp-controller="Admin" asp-action="AddModel" style="margin:40px;">Add Model</a>
+}
+
+<div class="banner-section section-top-gap-100">
+    <div class="banner-wrapper clearfix">
+        <!-- Start Banner Single Item -->
+        @foreach (var item in @Model.Models)
+        {
+
+            <div class="banner-single-item banner-style-4 banner-animation banner-color--green float-left aos-init aos-animate" data-aos="fade-up" data-aos-delay="0">
+                <div class="image">
+                    <img class="img-fluid" src="~/images/@item.ImagePath" alt="">
+                </div>
+                <a asp-action="Products" asp-controller="Home" asp-route-modelId="@item.Id" class="content">
+                    <div class="inner">
+                        <h4 class="title">@item.Name</h4>
+                    </div>
+                    <span class="round-btn"><i class="ion-ios-arrow-thin-right"></i></span>
+                </a>
+            </div>
+        }
+    </div>
+</div>
+

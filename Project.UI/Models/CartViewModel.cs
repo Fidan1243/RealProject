@@ -8,6 +8,7 @@ namespace Project.UI.Models
         public List<CartItemViewModel> CartItems { get; set; }
         public List<Model> Models { get; set; }
         public List<Material> Materials { get; set; }
+        public double Total { get; set; }
         public User User { get; set; }
     }
 }

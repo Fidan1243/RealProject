@@ -79,10 +79,10 @@
                             <div class="product-variable-color">
                                 @foreach (var item in @Model.Materials)
                                 {
-                                    <label for="product-color-red">
+                                    <a asp-action="Product" asp-controller="Home" asp-route-productId="@item.ProductId" style="background-image:~/image/@item.Material.ImagePath" for="product-color-red">
                                         <input name="product-color" id="product-color-red" class="color-select" type="radio" checked="">
                                         <span class="product-color-red"></span>
-                                    </label>
+                                    </a>
 
                                 }
 
@@ -168,7 +168,7 @@
                                             </a>
                                             <div class="action-link">
                                                 <div class="action-link-left">
-                                                    <a href="#" data-bs-toggle="modal" data-bs-target="#modalAddcart">Add to Cart</a>
+                                                    <a asp-action="AddToCart" asp-controller="Home" asp-route-productId="@item.Id" data-bs-toggle="modal" data-bs-target="#modalAddcart">Add To Cart</a>
                                                 </div>
                                                 <div class="action-link-right">
                                                     <a href="#" data-bs-toggle="modal" data-bs-target="#modalQuickview"><i class="icon-magnifier"></i></a>

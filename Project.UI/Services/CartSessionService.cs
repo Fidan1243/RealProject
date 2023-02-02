@@ -87,6 +87,7 @@ namespace Project.UI.Services
             var cart = _cartService.GetCarts().FirstOrDefault(i => i.User_Id == user.Id);
             var viewModelList = new CartViewModel()
             { CartItems = new List<CartItemViewModel>() };
+            double total = 0;
             if (cart != null)
             {
                 var list = _cartItemService.GetCartItemsByCart(cart.Id);
@@ -96,7 +97,7 @@ namespace Project.UI.Services
                     foreach (var item in list)
                     {
                         var product = _productService.GetProduct(item.Product_Id);
-
+                        total += product.Price * item.Quantity;
                         viewModelList.CartItems.Add(new CartItemViewModel
                         {
                             Product = product,
@@ -109,6 +110,7 @@ namespace Project.UI.Services
             {
                 _cartService.AddCart(new Cart { User_Id = user.Id });
             }
+            viewModelList.Total = total;
             return viewModelList;
         }
 

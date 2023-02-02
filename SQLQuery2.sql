@@ -1,3 +1,1 @@
-﻿Select * From CartItems
-
-Select * From Products
+﻿Insert Into OrderStatuses (Status) VALUES ('Open'),  ('Pending'), ('Canceled'), ('Completed')

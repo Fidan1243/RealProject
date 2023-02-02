@@ -67,6 +67,11 @@ namespace Project.UI.Controllers
             _carthelper.AddCartItem(productId, Quantity);
             return RedirectToAction("Index");
         }
+        public IActionResult DeleteFromCart(int itemId)
+        {
+            _carthelper.RemoveCartItem(itemId);
+            return RedirectToAction("Cart");
+        }
         public IActionResult Cart()
         {
             user = Static.UserStart(this, _userService);
@@ -91,6 +96,22 @@ namespace Project.UI.Controllers
                 Materials = _materialService.GetMaterials(),
                 User = user
             };
+            return View(vm);
+        }
+
+        public async Task<IActionResult> MaterialsAsync()
+        {
+            user = Static.UserStart(this, _userService);
+            var vm = await _mhelper.Product();
+            vm.User = user;
+            return View(vm);
+        }
+
+        public async Task<IActionResult> ModelsAsync()
+        {
+            user = Static.UserStart(this, _userService);
+            var vm = await _mhelper.Product();
+            vm.User = user;
             return View(vm);
         }
         public IActionResult Combinations()
