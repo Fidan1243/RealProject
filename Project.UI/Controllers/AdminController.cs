@@ -159,7 +159,11 @@ namespace Project.UI.Controllers
         [HttpPost]
         public async Task<IActionResult> UpdateMaterialAsync(MaterialViewModel materialViewModel)
         {
-            var filepath = await _helper.ImageHelper(materialViewModel.File);
+            string filepath = materialViewModel.Material.ImagePath;
+            if (materialViewModel.File != null)
+            {
+                filepath = await _helper.ImageHelper(materialViewModel.File);
+            }
             materialViewModel.Material.ImagePath = filepath;
             _materialService.UpdateMaterial(materialViewModel.Material);
             return RedirectToAction("Index", "Home");
@@ -183,7 +187,11 @@ namespace Project.UI.Controllers
         [HttpPost]
         public async Task<IActionResult> UpdateModelAsync(ModelViewModel modelViewModel)
         {
-            var filepath = await _helper.ImageHelper(modelViewModel.File);
+            string filepath = modelViewModel.Model.ImagePath;
+            if (modelViewModel.File != null)
+            {
+                filepath = await _helper.ImageHelper(modelViewModel.File);
+            }
             modelViewModel.Model.ImagePath = filepath;
             _modelService.UpdateModel(modelViewModel.Model);
             return RedirectToAction("Index", "Home");
@@ -192,7 +200,7 @@ namespace Project.UI.Controllers
         public IActionResult Accounts()
         {
             user = Static.UserStart(this, _userService);
-            var r =  _userService.GetUsers();
+            var r = _userService.GetUsers();
             return View(r);
         }
     }

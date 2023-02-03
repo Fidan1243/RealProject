@@ -11,69 +11,78 @@
 }
 
 <div class="cart-section" style="margin-top:30px;">
-        <div class="cart-table-wrapper aos-init aos-animate" data-aos="fade-up" data-aos-delay="0">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="table_desc">
-                            <div class="table_page table-responsive">
-                                <table>
-                                    <thead>
+    <div class="cart-table-wrapper aos-init aos-animate" data-aos="fade-up" data-aos-delay="0">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="table_desc">
+
+                        <div class="table_page table-responsive">
+                            <table id="CartTable">
+                                <thead>
+                                    <tr>
+                                        <th class="product_remove">Delete</th>
+                                        <th class="product_thumb">Image</th>
+                                        <th class="product_name">Product</th>
+                                        <th class="product-price">Price</th>
+                                        <th class="product_quantity">Quantity</th>
+                                        <th class="product_total">Total</th>
+                                        <th class="product_total"> </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in @Model.CartItems)
+                                    {
+                                        <form asp-action="UpdateCart" asp-controller="Home" method="post">
                                         <tr>
-                                            <th class="product_remove">Delete</th>
-                                            <th class="product_thumb">Image</th>
-                                            <th class="product_name">Product</th>
-                                            <th class="product-price">Price</th>
-                                            <th class="product_quantity">Quantity</th>
-                                            <th class="product_total">Total</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach (var item in @Model.CartItems)
-                                       {
-                                        <tr>
+                                            <input name="Id" type="number" hidden value="@item.CartItem.Id" asp-for="@item.CartItem.Id">
                                             <td class="product_remove">
                                                 <a asp-action="DeleteFromCart" asp-controller="Home" asp-route-itemId="@item.CartItem.Id"><i class="fa fa-trash-o"></i></a>
                                             </td>
-                                            <td class="product_thumb"><a  asp-action="Product" asp-controller="Home" asp-route-productId="@item.Product.Id"><img src="~/images/@item.Product.ImagePath" alt=""></a></td>
+                                            <td class="product_thumb"><a asp-action="Product" asp-controller="Home" asp-route-productId="@item.Product.Id"><img src="~/images/@item.Product.ImagePath" alt=""></a></td>
                                             <td class="product_name"><a asp-action="Product" asp-controller="Home" asp-route-productId="@item.Product.Id">@item.Product.Name</a></td>
                                             <td class="product-price">$@item.Product.Price</td>
-                                            <td class="product_quantity"><label>Quantity</label> <input min="1" max="100" value="@item.CartItem.Quantity" type="number"></td>
+                                            <td class="product_quantity"><label>Quantity</label> <input name="Quantity" asp-for="@item.CartItem.Quantity" min="1" max="@item.Product.Quantity" value="@item.CartItem.Quantity" type="number"></td>
                                             <td class="product_total">$@((item.Product.Price * item.CartItem.Quantity).ToString())</td>
+                                            <td class="product_total">
+
+                                                <div class="cart_submit">
+                                                    <input class="btn btn-md btn-golden" id="cartUpdate" type="submit" value="update" />
+                                                </div>
+                                            </td>
                                         </tr>
-                                       }
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="cart_submit">
-                                <button class="btn btn-md btn-golden" type="submit">update cart</button>
-                            </div>
+                                        </form>
+                                    }
+                                </tbody>
+                            </table>
                         </div>
+
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <div class="coupon_area">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-6 col-md-6">
-                        <div class="coupon_code right aos-init aos-animate" data-aos="fade-up" data-aos-delay="400">
-                            <h3>Cart Totals</h3>
-                            <div class="coupon_inner">
-                                <div class="cart_subtotal">
-                                    <p>Subtotal</p>
-                                    <p class="cart_amount">$@Model.Total</p>
-                                </div>
-                                <div class="cart_subtotal">
-                                    <p>Total</p>
+    <div class="coupon_area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-6">
+                    <div class="coupon_code right aos-init aos-animate" data-aos="fade-up" data-aos-delay="400">
+                        <h3>Cart Totals</h3>
+                        <div class="coupon_inner">
+                            <div class="cart_subtotal">
+                                <p>Subtotal</p>
                                 <p class="cart_amount">$@Model.Total</p>
-                                </div>
-                                <div class="checkout_btn">
-                                    @if(Model.Total > 0){
+                            </div>
+                            <div class="cart_subtotal">
+                                <p>Total</p>
+                                <p class="cart_amount">$@Model.Total</p>
+                            </div>
+                            <div class="checkout_btn">
+                                @if (Model.Total > 0)
+                                {
                                     <a asp-action="Checkout" asp-controller="Home" class="btn btn-md btn-golden">Proceed to Checkout</a>
-                                    }
-                                </div>
+                                }
                             </div>
                         </div>
                     </div>
@@ -81,3 +90,4 @@
             </div>
         </div>
     </div>
+</div>

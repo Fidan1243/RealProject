@@ -32,6 +32,11 @@
                         <input asp-for="@Model.Material.Id" class="form-control" placeholder="Id" />
                         <span asp-validation-for="@Model.Material.Id"></span>
                     </div>
+                    <div style="margin-bottom:15px;" hidden class="form-group">
+                        <label asp-for="@Model.Material.ImagePath">Photo</label>
+                        <input asp-for="@Model.Material.ImagePath" class="form-control" placeholder="Id" />
+                        <span asp-validation-for="@Model.Material.ImagePath"></span>
+                    </div>
                     <div style="margin-bottom:15px" class="form-group">
                         <label asp-for="@Model.Material.Name">Name</label>
                         <input asp-for="@Model.Material.Name" class="form-control" placeholder="Name" />

@@ -10,7 +10,6 @@ namespace Project.UI.Services
 {
     public class CartSessionService : ICartSessionService
     {
-        private IHttpContextAccessor _httpContextAccessor;
         private ICartItemService _cartItemService;
         private ICartService _cartService;
         private IProductService _productService;
@@ -18,7 +17,6 @@ namespace Project.UI.Services
         private User user;
         public CartSessionService(IUserService userService, IHttpContextAccessor httpContextAccessor, ICartItemService cartItemService, ICartService cartService, IProductService productService, IOrderService orderService)
         {
-            _httpContextAccessor = httpContextAccessor;
             _cartItemService = cartItemService;
             _cartService = cartService;
             user = userService.GetUsers().Find(i => i.User_Id == httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
@@ -93,6 +91,16 @@ namespace Project.UI.Services
             prod.Quantity -= list.Quantity <= prod.Quantity ? list.Quantity : prod.Quantity;
             prod.OrderCount += list.Quantity <= prod.Quantity ? list.Quantity : prod.Quantity;
             _productService.UpdateProduct(prod);
+        }
+
+        public void EditCartItem(int Id, int Quantity)
+        {
+            var cart = _cartItemService.GetCartItem(Id);
+            if (cart !=null)
+            {
+                cart.Quantity = Quantity;
+                _cartItemService.UpdateCartItem(cart);
+            }
         }
 
         public CartViewModel GetCart()

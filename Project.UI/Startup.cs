@@ -26,6 +26,7 @@ namespace Project.UI
         {
             services.AddBusiness().AddDataAccess();
             services.AddScoped<ICartSessionService, CartSessionService>();
+            services.AddScoped<IOrderSessionService, OrderSessionService>();
             services.AddHttpContextAccessor();
 
             services.AddDbContext<CustomeIdentityDbContext>(

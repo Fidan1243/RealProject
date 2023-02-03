@@ -1,0 +1,92 @@
+﻿@model Project.UI.Models.OrderListViewModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "Orders";
+    ViewData["Models"] = @Model.Models;
+    ViewData["Materials"] = @Model.Materials;
+    ViewData["Username"] = @Model.User.UserName;
+    ViewData["Role"] = @Model.User.Role;
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+
+<div class="cart-section" style="margin-top:30px;">
+    <div class="cart-table-wrapper aos-init aos-animate" data-aos="fade-up" data-aos-delay="0">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="table_desc">
+
+                        <div class="table_page table-responsive">
+                            <table id="CartTable">
+                                <thead>
+                                    <tr>
+                                        <th class="product_remove">Delete</th>
+                                        <th class="product_thumb">Image</th>
+                                        <th class="product_name">Product</th>
+                                        <th class="product-price">Price</th>
+                                        <th class="product_quantity">Quantity</th>
+                                        <th class="product_total">Total</th>
+                                        @if (@Model.User.Role == "Admin")
+                                        {
+
+                                            <th class="product_total"> </th>
+                                        }
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in @Model.Orders)
+                                    {
+                                        <form asp-action="UpdateOrder" asp-controller="Admin" method="post">
+                                        <tr>
+                                            <input name="Id" type="number" hidden value="@item.Order.Id" asp-for="@item.Order.Id">
+                                            <td class="product_remove">
+                                                <a asp-action="DeleteOrder" asp-controller="Admin" asp-route-itemId="@item.Order.Id"><i class="fa fa-trash-o"></i></a>
+                                            </td>
+                                            <td class="product_thumb"><a asp-action="Product" asp-controller="Home" asp-route-productId="@item.Product.Id"><img src="~/images/@item.Product.ImagePath" alt=""></a></td>
+                                            <td class="product_name"><a asp-action="Product" asp-controller="Home" asp-route-productId="@item.Product.Id">@item.Product.Name</a></td>
+                                            <td class="product-price">$@item.Product.Price</td>
+                                            <td class="product_quantity">
+                                                <label asp-for="@item.">Model</label>
+                                                    @if (@Model.User.Role == "Admin")
+                                                    {
+
+                                                    <select asp-for="@item.Order.Status_Id" class="form-control"
+                                                    asp-items="@(new SelectList(Model.OrderStatuses, "Id", "Status"))">
+                                                        <option>Please select one</option>
+                                                    </select>
+                                                    }
+                                                    else
+                                                    {
+
+                                                    <select disabled asp-for="@item.Order.Status_Id" class="form-control"
+                                                    asp-items="@(new SelectList(Model.OrderStatuses, "Id", "Status"))">
+                                                        <option>Please select one</option>
+                                                    </select>
+                                                    }
+                                            </td>
+                                            <td class="product_total">$@((item.Product.Price * item.Order.Quantity).ToString())</td>
+                                                @if (@Model.User.Role == "Admin")
+                                                {
+
+                                                <td class="product_total">
+
+                                                    <div class="cart_submit">
+                                                        <input class="btn btn-md btn-golden" id="cartUpdate" type="submit" value="update" />
+                                                    </div>
+                                                </td>
+                                                }
+                                        </tr>
+                                        </form>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

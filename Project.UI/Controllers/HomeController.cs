@@ -26,24 +26,26 @@ namespace Project.UI.Controllers
         private IUserService _userService;
         private readonly ComboProductsHelper _chelper;
         private readonly ICartSessionService _carthelper;
+        private readonly IOrderSessionService _orderSessionService;
         private ProductModifyHelper _mhelper;
         private User user;
-        public HomeController(IWebHostEnvironment _webHost, ICartSessionService CartService, IProductService productService, IComboService comboService, IModelService modelService, IUserService userService, IMaterialService materialService)
+        public HomeController(IWebHostEnvironment _webHost, ICartSessionService CartService, IProductService productService, IComboService comboService, IModelService modelService, IUserService userService, IMaterialService materialService, IOrderSessionService orderSessionService)
         {
             _productService = productService;
             _comboService = comboService;
             _modelService = modelService;
             _carthelper = CartService;
-            _chelper = new ComboProductsHelper(_productService, _modelService, _carthelper,materialService);
+            _chelper = new ComboProductsHelper(_productService, _modelService, _carthelper, materialService);
             _userService = userService;
             _materialService = materialService;
             _mhelper = new ProductModifyHelper(_webHost, _productService, _modelService, _materialService, CartService);
+            _orderSessionService = orderSessionService;
         }
         List<Model> Models { get; set; }
         public async Task<IActionResult> Index(int modelId = 0, int materialId = 0)
         {
             user = Static.UserStart(this, _userService);
-            var vm = await _mhelper.Product(modelId,materialId);
+            var vm = await _mhelper.Product(modelId, materialId);
             vm.User = user;
             return View(vm);
         }
@@ -55,14 +57,14 @@ namespace Project.UI.Controllers
             vm.User = user;
             return View(vm);
         }
-        public async Task<IActionResult> Products(int modelId=0,int materialId=0)
+        public async Task<IActionResult> Products(int modelId = 0, int materialId = 0)
         {
             user = Static.UserStart(this, _userService);
             var vm = await _mhelper.Product(modelId, materialId);
             vm.User = user;
             return View(vm);
         }
-        public IActionResult AddToCart(int productId,int Quantity = 1)
+        public IActionResult AddToCart(int productId, int Quantity = 1)
         {
             _carthelper.AddCartItem(productId, Quantity);
             return RedirectToAction("Index");
@@ -76,7 +78,7 @@ namespace Project.UI.Controllers
         {
             user = Static.UserStart(this, _userService);
 
-            var vm =_carthelper.GetCart();
+            var vm = _carthelper.GetCart();
 
             vm.Models = _modelService.GetModels();
             vm.Materials = _materialService.GetMaterials();
@@ -145,19 +147,36 @@ namespace Project.UI.Controllers
             vm.User = user;
             return View(vm);
         }
+
+        public IActionResult UpdateCart(int Id, int Quantity)
+        {
+            user = Static.UserStart(this, _userService);
+            _carthelper.EditCartItem(Id, Quantity);
+
+            return Redirect("Cart");
+        }
         public IActionResult Order(string City, string Address)
         {
             user = Static.UserStart(this, _userService);
 
-            _carthelper.BuyCart(Address,City);
+            _carthelper.BuyCart(Address, City);
             return Redirect("Index");
+        }
+        public IActionResult Orders()
+        {
+            user = Static.UserStart(this, _userService);
+            var vm = _orderSessionService.GetOrders();
+            vm.Models = _modelService.GetModels();
+            vm.Materials = _materialService.GetMaterials();
+            vm.User = user;
+            return View(vm);
         }
 
         [HttpPost]
         public IActionResult CreateCombination(Combo combo)
         {
             user = Static.UserStart(this, _userService);
-            combo.User_Id = user.Id;   
+            combo.User_Id = user.Id;
             _comboService.AddCombo(combo);
             return RedirectToAction("Index", "Home");
         }

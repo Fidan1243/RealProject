@@ -63,12 +63,13 @@
                                                                 <img src="~/images/@item.ImagePath" alt="">
                                                             </a>
                                                             <div class="action-link">
-                                                                <div class="action-link-left">
-                                                                    <a asp-action="AddToCart" asp-controller="Home" asp-route-productId="@item.Id" data-bs-toggle="modal" data-bs-target="#modalAddcart">Add To Cart</a>
-                                                                </div>
+                                                                 <form asp-action="AddToCart" asp-controller="Home" asp-route-productId="@item.Id" method="post">
+
+                                                <div class="action-link-left">
+                                                        <input type="submit" style="color:white;" value="Add To Cart" data-bs-toggle="modal" data-bs-target="#modalAddcart"/>
+                                                </div>
+                                                </form>
                                                                 <div class="action-link-right">
-                                                                    <a href="#" data-bs-toggle="modal" data-bs-target="#modalQuickview"><i class="icon-magnifier"></i></a>
-                                                                    <a href="wishlist.html"><i class="icon-heart"></i></a>
                                                                     @if(@Model.User.Role == "Admin")
                                                         {
                                                     <a asp-controller="Admin" asp-action="UpdateProduct" asp-route-productId="@item.Id">U</a>

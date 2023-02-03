@@ -9,6 +9,7 @@ namespace Project.UI.Services
         void RemoveCartItem(int id);
         void BuyCartItem(int id);
         void AddCartItem(int productId,int Quantity);
+        void EditCartItem(int Id, int Quantity);
         void BuyCart(string address,string city);
     }
 }
