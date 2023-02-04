@@ -22,6 +22,7 @@ namespace Project.UI.Controllers
         private IProductService _productService;
         private IModelService _modelService;
         private IMaterialService _materialService;
+        private IOrderStatusService _orderStatusService;
         private IComboService _comboService;
         private IUserService _userService;
         private readonly ComboProductsHelper _chelper;
@@ -29,7 +30,7 @@ namespace Project.UI.Controllers
         private readonly IOrderSessionService _orderSessionService;
         private ProductModifyHelper _mhelper;
         private User user;
-        public HomeController(IWebHostEnvironment _webHost, ICartSessionService CartService, IProductService productService, IComboService comboService, IModelService modelService, IUserService userService, IMaterialService materialService, IOrderSessionService orderSessionService)
+        public HomeController(IWebHostEnvironment _webHost, ICartSessionService CartService, IProductService productService, IComboService comboService, IModelService modelService, IUserService userService, IMaterialService materialService, IOrderSessionService orderSessionService, IOrderStatusService orderStatusService)
         {
             _productService = productService;
             _comboService = comboService;
@@ -40,6 +41,7 @@ namespace Project.UI.Controllers
             _materialService = materialService;
             _mhelper = new ProductModifyHelper(_webHost, _productService, _modelService, _materialService, CartService);
             _orderSessionService = orderSessionService;
+            _orderStatusService = orderStatusService;
         }
         List<Model> Models { get; set; }
         public async Task<IActionResult> Index(int modelId = 0, int materialId = 0)
@@ -170,6 +172,13 @@ namespace Project.UI.Controllers
             vm.Materials = _materialService.GetMaterials();
             vm.User = user;
             return View(vm);
+        }
+        public IActionResult CancelOrder(int orderId)
+        {
+            user = Static.UserStart(this, _userService);
+            var status = _orderStatusService.GetOrderStatusByName(Static.Canceled);
+            _orderSessionService.UpdateOrder(orderId, status.Id);
+            return RedirectToAction("Orders");
         }
 
         [HttpPost]

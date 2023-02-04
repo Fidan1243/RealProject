@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore.Internal;
 using Project.Business.Abstract;
 using Project.Entities.Concrete;
 using Project.UI.Models;
+using System.Linq;
 using System.Security.Claims;
 
 namespace Project.UI.Services
@@ -36,6 +38,7 @@ namespace Project.UI.Services
             };
             if (orders != null)
             {
+                orders.OrderBy(i => i.Status_Id);
                 if (user.Role != "Admin")
                 {
                     orders = orders.FindAll(i => i.User_Id == user.Id);

@@ -27,6 +27,12 @@ namespace Project.Business.Concrete
             return user;
         }
 
+        public OrderStatus GetOrderStatusByName(string Status)
+        {
+            var user = _orderStatusDal.Get(g => g.Status == Status);
+            return user;
+        }
+
         public List<OrderStatus> GetOrderStatuses()
         {
             var users = _orderStatusDal.GetList();

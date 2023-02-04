@@ -9,6 +9,7 @@ namespace Project.Business.Abstract
     {
         List<OrderStatus> GetOrderStatuses();
         OrderStatus GetOrderStatus(int id);
+        OrderStatus GetOrderStatusByName(string Status);
         void AddOrderStatus(OrderStatus orderStatus);
         void UpdateOrderStatus(OrderStatus orderStatus);
         void RemoveOrderStatus(int id);

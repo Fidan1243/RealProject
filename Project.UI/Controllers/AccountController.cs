@@ -64,11 +64,11 @@ namespace Project.UI.Controllers
                 IdentityResult result = _userManager.CreateAsync(user, registerViewModel.Password).Result;
                 if (result.Succeeded)
                 {
-                    if (!_roleManager.RoleExistsAsync("Admin").Result)
+                    if (!_roleManager.RoleExistsAsync("User").Result)
                     {
                         CustomIdentityRole role = new CustomIdentityRole
                         {
-                            Name = "Admin"
+                            Name = "User"
                         };
 
                         IdentityResult roleResult = _roleManager.CreateAsync(role).Result;
@@ -78,7 +78,7 @@ namespace Project.UI.Controllers
                             return View(registerViewModel);
                         }
                     }
-                    _userManager.AddToRoleAsync(user, "Admin").Wait();
+                    _userManager.AddToRoleAsync(user, "User").Wait();
                     _userService.AddUser(new User
                     {
                         User_Id = user.Id,
@@ -86,7 +86,7 @@ namespace Project.UI.Controllers
                         Surname = registerViewModel.Surname,
                         UserName = registerViewModel.Username,
                         Email = registerViewModel.Email,
-                        Role = "Admin"
+                        Role = "User"
                     });
                     return RedirectToAction("Login");
                 }

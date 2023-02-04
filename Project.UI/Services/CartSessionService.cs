@@ -11,6 +11,7 @@ namespace Project.UI.Services
     public class CartSessionService : ICartSessionService
     {
         private ICartItemService _cartItemService;
+        private IHttpContextAccessor _accessor;
         private ICartService _cartService;
         private IProductService _productService;
         private IOrderService _orderService;
@@ -19,7 +20,9 @@ namespace Project.UI.Services
         {
             _cartItemService = cartItemService;
             _cartService = cartService;
-            user = userService.GetUsers().Find(i => i.User_Id == httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            _accessor = httpContextAccessor;
+            var uu = _accessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            user = userService.GetUsers().Find(i => i.User_Id == _accessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
             _productService = productService;
             _orderService = orderService;
         }

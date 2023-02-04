@@ -24,10 +24,11 @@ namespace Project.UI.Controllers
         private IModelService _modelService;
         private IUserService _userService;
         private IWebHostEnvironment _webhost;
+        private readonly IOrderSessionService _orderSessionService;
         private UserManager<CustomIdentityUser> _userManager;
         private User user;
         private ProductModifyHelper _helper;
-        public AdminController(IWebHostEnvironment webHost, ICartSessionService cartService, IUserService userService, IHttpContextAccessor httpContextAccessor, IProductService productService, UserManager<CustomIdentityUser> useerManager, IMaterialService materialService, IModelService modelService)
+        public AdminController(IWebHostEnvironment webHost, ICartSessionService cartService, IUserService userService, IHttpContextAccessor httpContextAccessor, IProductService productService, UserManager<CustomIdentityUser> useerManager, IMaterialService materialService, IModelService modelService, IOrderSessionService orderSessionService)
         {
             _webhost = webHost;
             _productService = productService;
@@ -37,6 +38,7 @@ namespace Project.UI.Controllers
 
             _modelService = modelService;
             _userService = userService;
+            _orderSessionService = orderSessionService;
         }
         public IActionResult Index()
         {
@@ -93,6 +95,14 @@ namespace Project.UI.Controllers
                 Models = _modelService.GetModels(),
             };
             return View(model);
+        }
+
+
+        public IActionResult UpdateOrder(Order order,int Status)
+        {
+            user = Static.UserStart(this, _userService);
+            _orderSessionService.UpdateOrder(order.Id, Status);
+            return RedirectToAction("Orders","Home");
         }
         [HttpPost]
         public async Task<IActionResult> AddProductAsync(ProductModifyModel productModifyModel)
