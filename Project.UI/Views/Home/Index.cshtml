@@ -48,11 +48,15 @@
                                                 <img class="imageProduct" src="~/images/@item.ImagePath" alt="">
                                             </a>
                                             <div class="action-link">
-                                                    <form asp-action="AddToCart" asp-controller="Home" asp-route-productId="@item.Id" method="post">
 
+                                                    <form asp-action="AddToCart" asp-controller="Home" asp-route-productId="@item.Id" method="post">
+                                                        @if (item.Quantity > 0)
+                                                       {
+                                                           
                                                 <div class="action-link-left">
                                                         <input type="submit" style="color:white;" value="Add To Cart" data-bs-toggle="modal" data-bs-target="#modalAddcart"/>
                                                 </div>
+                                                       }
                                                 </form>
                                                 <div class="action-link-right">
                                                         @if(@Model.User.Role == "Admin")

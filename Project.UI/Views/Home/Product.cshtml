@@ -99,10 +99,12 @@
                                         <input min="1"  name="Quantity" max="@Model.Product.Quantity" value="1" type="number">
                                     </div>
                                 </div>
+                                @if(Model.Product.Quantity > 0){
 
                                 <div class="product-add-to-cart-btn">
                                     <input  data-bs-toggle="modal" data-bs-target="#modalAddcart" type="submit" value="+ Add To Cart"/>
                                 </div>
+                                }
                             </div>
                         </form>
                         <!-- Start  Product Details Meta Area-->
@@ -176,10 +178,13 @@
                                             </a>
                                             <div class="action-link">
                                                  <form asp-action="AddToCart" asp-controller="Home" asp-route-productId="@item.Id" method="post">
-
+                                                      @if (item.Quantity > 0)
+                                                       {
+                                                      
                                                 <div class="action-link-left">
                                                         <input type="submit" style="color:white;" value="Add To Cart" data-bs-toggle="modal" data-bs-target="#modalAddcart"/>
                                                 </div>
+                                                       }
                                                 </form>
                                                 <div class="action-link-right">
                                                 </div>
