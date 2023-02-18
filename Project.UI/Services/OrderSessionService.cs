@@ -61,8 +61,18 @@ namespace Project.UI.Services
         public void UpdateOrder(int Id,int Status)
         {
             var order = _orderService.GetOrder(Id);
+            if (order != null)
+            {
+                if(_orderStatusService.GetOrderStatus(order.Status_Id).Status == "Canceled")
+                {
+                    var pr = _productService.GetProduct(order.Product_Id);
+                    pr.OrderCount -= order.Quantity;
+                    pr.Quantity += order.Quantity;
+                    _productService.UpdateProduct(pr);
+                }
             order.Status_Id = Status;
             _orderService.UpdateOrder(order);
+            }
         }
     }
 }
