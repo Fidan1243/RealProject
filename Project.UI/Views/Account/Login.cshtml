@@ -11,56 +11,36 @@
     <div id="loginbox" style="margin-top:50px;"
          class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
         <div class="panel panel-info">
-            <div class="panel-heading">
-                <div class="panel-title">Sign In</div>
-            </div>
-            <div style="padding-top:30px;" class="panel-body">
+            
+            <div style="align-content:center;padding-top:30px;" class="panel-body">
                 <div style="display:none;" id="login-alert"
                      class="alert alert-danger col-sm-12">
                 </div>
-
-
-                <form asp-controller="Account" asp-action="Login" method="post"
-                      role="form" class="form-horizontal">
-                    <div style="margin-bottom:25px" class="input-group">
-                        <input asp-for="Username" class="form-control" placeholder="Username" />
-                        <span asp-validation-for="Username"></span>
-                    </div>
-
-                    <div style="margin-bottom:25px" class="input-group">
-                        <input asp-for="Password" class="form-control" placeholder="Password" />
-                        <span asp-validation-for="Password"></span>
-                    </div>
-
-                    <div hidden class="input-group">
-                        <div class="checkbox">
-                            <label>
-                                <input value="false" type="radio" asp-for="RememberMe" /> Remember Me
+                <div class="account_form aos-init aos-animate" data-aos="fade-up" data-aos-delay="0">
+                    <h3>login</h3>
+                    <form asp-controller="Account" asp-action="Login" method="post"
+                          role="form" class="form-horizontal">
+                        <div class="default-form-box">
+                            <label>Username or email <span>*</span></label>
+                            <input  asp-for="Username"  type="text">
+                        </div>
+                        <div class="default-form-box">
+                            <label>Passwords <span>*</span></label>
+                            <input asp-for="Password" type="password"/>
+                    <span asp-validation-for="Password"></span>
+                        </div>
+                        <div class="login_submit">
+                            <button class="btn btn-md btn-black-default-hover mb-4 buttonN" style="background:black;color:white;"  type="submit">login</button>
+                            <label class="checkbox-default mb-4" for="offer">
+                                <input asp-for="RememberMe" type="checkbox" id="offer">
+                                <span>Remember me</span>
                             </label>
+                            <a style="color:black;" href="/Account/Register">Don't have any account?</a>
+
                         </div>
-                    </div>
+                    </form>
+                </div>
 
-                    <div style="margin-top:10px" class="form-group" >
-                        <div class="col-sm-12 controls" >
-                            <input type="submit" class="btn-success" />
-                        </div>
-                    </div>
-
-
-                    <div  class="form-group" >
-                        <div  class="col-md-12 control" >
-                            <div style="border-top:1px solid #888;padding-top:15px;font-size:85%" >
-                                Don't have an account!
-                                <a asp-controller="Account" asp-action="Register" >
-                                    Sign Up Here
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-
-
-                </form>
 
 
             </div>

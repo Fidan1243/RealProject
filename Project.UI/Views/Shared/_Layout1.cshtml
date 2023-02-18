@@ -31,6 +31,18 @@
     <link rel="stylesheet" href="~/css/plugins/plugins.min.css">
     <link rel="stylesheet" href="~/css/style.min.css">
 
+    <style>
+        .imageProduct{
+            float: left !important;
+    height: 400px !important;
+    object-fit: cover !important;
+        }
+        .imagePr{
+            height: 60px !important;
+        }
+
+    </style>
+
 </head>
 <body data-aos-easing="ease" data-aos-duration="1000" data-aos-delay="0">
     <header class="header-section d-none d-xl-block">
@@ -696,17 +708,17 @@
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script type="text/javascript" src="http://ajax.cdnjs.com/ajax/libs/json2/20110223/json2.js"></script>
     <script type="text/javascript">
-        $("body").on("click", "#cartUpdate", function () {
+        $("body").on("click", "#cartUpdate", function() {
             //Loop through the Table rows and build a JSON array.
             var customers = new Array();
-            $("#CartTable TBODY TR").each(function () {
+            $("#CartTable TBODY TR").each(function() {
                 var row = $(this);
                 var customer = {};
                 customer.Id = row.find("TD").eq(0).html();
                 customer.Quantity = row.find("TD").eq(5).html();
                 customers.push(customer);
             });
- 
+
             //Send the JSON array to Controller using AJAX.
             $.ajax({
                 type: "POST",
@@ -714,7 +726,7 @@
                 data: JSON.stringify(customers),
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
-                success: function (r) {
+                success: function(r) {
                     alert(r + " record(s) inserted.");
                 }
             });

@@ -30,7 +30,7 @@ namespace Project.UI
             services.AddHttpContextAccessor();
 
             services.AddDbContext<CustomeIdentityDbContext>(
-                options => options.UseSqlServer(@"Data Source=STHQ012D-08;Initial Catalog=ProjectDb;User ID=admin;Password=admin;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"));
+                options => options.UseSqlServer(@"Data Source=(localdb)\ProjectModels;Initial Catalog=ProjectDb;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"));
             services.AddIdentity<CustomIdentityUser, CustomIdentityRole>()
                 .AddEntityFrameworkStores<CustomeIdentityDbContext>()
                 .AddDefaultTokenProviders();
