@@ -20,9 +20,9 @@
         @foreach (var item in @Model.Materials)
         {
 
-            <div class="banner-single-item banner-style-4 banner-animation banner-color--green float-left aos-init aos-animate" data-aos="fade-up" data-aos-delay="0">
+            <div style="margin: 20px !important;" class="banner-single-item banner-style-4 banner-animation banner-color--green float-left aos-init aos-animate" data-aos="fade-up" data-aos-delay="0">
                 <div class="image">
-                    <img  class="img-fluid" src="~/images/@item.ImagePath" alt="">
+                    <img style="height:200px !important;" class="img-fluid" src="~/images/@item.ImagePath" alt="">
                 </div>
                 <a asp-action="Products" asp-controller="Home" asp-route-materialId="@item.Id" class="content">
                     <div class="inner">

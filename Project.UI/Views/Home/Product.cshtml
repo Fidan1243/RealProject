@@ -80,7 +80,7 @@
                                 @foreach (var item in @Model.Materials)
                                 {
                                     <a asp-action="Product" asp-controller="Home" asp-route-productId="@item.ProductId" style="background-image:~/image/@item.Material.ImagePath" for="product-color-red">
-                                        <img style="width:30px;height:40px;" src="~/images/@item.Material.ImagePath">
+                                        <img style="width:30px !important;height:40px !important;" src="~/images/@item.Material.ImagePath">
                                         <span class="product-color-red"></span>
                                     </a>
 
