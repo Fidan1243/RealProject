@@ -94,25 +94,30 @@
                                 <div class="variable-single-item ">
                                     <span>Quantity</span>
                                     <div class="product-variable-quantity">
-                                        
+
                                         <input hidden name="productId" value="@Model.Product.Id" type="number">
-                                        <input min="1"  name="Quantity" max="@Model.Product.Quantity" value="1" type="number">
+                                        <input min="1" name="Quantity" max="@Model.Product.Quantity" value="1" type="number">
                                     </div>
                                 </div>
-                                @if(Model.Product.Quantity > 0){
+                                @if (Model.Product.Quantity > 0)
+                                {
 
-                                <div class="product-add-to-cart-btn">
-                                    <input  data-bs-toggle="modal" data-bs-target="#modalAddcart" type="submit" value="+ Add To Cart"/>
-                                </div>
+                                    <div class="product-add-to-cart-btn">
+                                        <input data-bs-toggle="modal" data-bs-target="#modalAddcart" type="submit" value="+ Add To Cart" />
+                                    </div>
                                 }
                             </div>
                         </form>
                         <!-- Start  Product Details Meta Area-->
                         <div class="product-details-meta mb-20">
-                            <a href="wishlist.html" class="icon-space-right">
-                                <i class="icon-heart"></i>Add to
-                                wishlist
-                            </a>
+                            @if (Model.Product.Quantity > 0)
+                            {
+
+                                <div class="product-add-to-cart-btn">
+                                    <a data-bs-toggle="modal" style="color:white;" asp-action="UpdateProduct" asp-controller="Admin" asp-route-productId="@Model.Product.Id" data-bs-target="#modalAddcart">Update</a>
+                                    <a data-bs-toggle="modal" style="color:white;"  asp-action="DeleteProduct" asp-controller="Admin" asp-route-productId="@Model.Product.Id"  data-bs-target="#modalAddcart">Delete</a>
+                                </div>
+                            }
                         </div> <!-- End  Product Details Meta Area-->
                     </div> <!-- End Product Variable Area -->
                     <!-- Start  Product Details Catagories Area-->
@@ -166,26 +171,35 @@
                                     <div class="product-default-single-item product-color--golden swiper-slide swiper-slide-active" role="group" aria-label="1 / 8" style="width: 297.5px; margin-right: 30px;">
                                         <div class="image-box">
                                             <a asp-action="Product" asp-controller="Home" asp-route-productId="@item.Id" class="image-link">
-                                                @if(item.Model_Id == Model.Models.FirstOrDefault(i=>i.Name == "Hooks").Id){
+                                                @if (item.Model_Id == Model.Models.FirstOrDefault(i => i.Name == "Hooks").Id)
+                                                {
                                                     <img src="~/images/@item.ImagePath" alt="">
 
                                                 }
                                                 else
                                                 {
-                                                    
-                                                <img class="imageProduct" src="~/images/@item.ImagePath" alt="">
+
+                                                    <img class="imageProduct" src="~/images/@item.ImagePath" alt="">
                                                 }
                                             </a>
                                             <div class="action-link">
-                                                 <form asp-action="AddToCart" asp-controller="Home" asp-route-productId="@item.Id" method="post">
-                                                      @if (item.Quantity > 0)
-                                                       {
-                                                      
-                                                <div class="action-link-left">
-                                                        <input type="submit" style="color:white;" value="Add To Cart" data-bs-toggle="modal" data-bs-target="#modalAddcart"/>
-                                                </div>
-                                                       }
+                                                <form asp-action="AddToCart" asp-controller="Home" asp-route-productId="@item.Id" method="post">
+                                                    @if (item.Quantity > 0)
+                                                    {
+
+                                                        <div class="action-link-left">
+                                                            <input type="submit" style="color:white;" value="Add To Cart" data-bs-toggle="modal" data-bs-target="#modalAddcart" />
+                                                        </div>
+                                                    }
                                                 </form>
+                                                <div class="action-link-right">
+                                                        @if(@Model.User.Role == "Admin")
+                                                        {
+                                                    <a asp-controller="Admin" asp-action="UpdateProduct" asp-route-productId="@item.Id">U</a>
+                                                    <a asp-controller="Admin" asp-action="DeleteProduct" asp-route-productId="@item.Id">D</a>
+                                                            
+                                                        }
+                                                    </div>
                                                 <div class="action-link-right">
                                                 </div>
                                             </div>
