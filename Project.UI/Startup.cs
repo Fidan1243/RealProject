@@ -30,7 +30,7 @@ namespace Project.UI
             services.AddHttpContextAccessor();
 
             services.AddDbContext<CustomeIdentityDbContext>(
-                options => options.UseSqlServer(@"Data Source=(localdb)\ProjectModels;Initial Catalog=ProjectDb;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"));
+                options => options.UseSqlServer(@"Server=tcp:ecommercealtos.database.windows.net,1433;Initial Catalog=ProjectDb1;Persist Security Info=False;User ID=adminecommerce;Password=29u2ev66.;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"));
             services.AddIdentity<CustomIdentityUser, CustomIdentityRole>()
                 .AddEntityFrameworkStores<CustomeIdentityDbContext>()
                 .AddDefaultTokenProviders();

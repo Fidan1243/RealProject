@@ -78,6 +78,20 @@ namespace Project.UI.Controllers
                             return View(registerViewModel);
                         }
                     }
+                    if (!_roleManager.RoleExistsAsync("Admin").Result)
+                    {
+                        CustomIdentityRole role = new CustomIdentityRole
+                        {
+                            Name = "Admin"
+                        };
+
+                        IdentityResult roleResult = _roleManager.CreateAsync(role).Result;
+                        if (!roleResult.Succeeded)
+                        {
+                            ModelState.AddModelError("", "We can not add the role");
+                            return View(registerViewModel);
+                        }
+                    }
                     _userManager.AddToRoleAsync(user, "User").Wait();
                     _userService.AddUser(new User
                     {
@@ -90,7 +104,11 @@ namespace Project.UI.Controllers
                     });
                     return RedirectToAction("Login");
                 }
-
+                else
+                {
+                    ModelState.AddModelError("", result.Errors.ToString());
+                    return View(registerViewModel);
+                }
 
             }
             return View(registerViewModel);
